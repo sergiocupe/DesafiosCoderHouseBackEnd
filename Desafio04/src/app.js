@@ -4,6 +4,7 @@ import { Server } from 'socket.io'
 import productRoutes from "./routes/productRoutes.js";
 import cartsRoutes from "./routes/cartsRoutes.js";
 import { ProductManager } from "./clases/Producto.js";
+import viewRoutes from './routes/viewsRoutes.js'
 
 const PORT = 8080;
 const app = express();
@@ -11,32 +12,23 @@ const pathJson = "./src/json/productos.json"
 const productManager = new ProductManager(pathJson);
 const products = await productManager.getProducts();
 
-//***************MIDLEWEARES**************/
+//*************** MIDLEWEARES **************/
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true}))
 app.use(express.static('public'))
 
-//***************CONFIGURACION HANDLEBARS**************/
+//*************** CONFIGURACION HANDLEBARS **************/
 
 app.engine('handlebars',handlebars.engine()) 
 app.set('views','src/views')
 app.set('view engine', 'handlebars')
+app.use('/', viewRoutes)
 
- app.get('/', (req,res) =>{
-  res.render('home')
- })
-
- app.get('/realtimeproducts', (req,res) =>{
-  res.render('realtimeproducts')
- })
- 
-
- //*************** ROUTES **************/
+ //*************** ROUTES API **************/
 
 app.use('/api/products', productRoutes)
 app.use('/api/carts', cartsRoutes)
-
 
 //*************** SERVER **************/
 
