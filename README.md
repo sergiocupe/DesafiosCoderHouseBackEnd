@@ -110,7 +110,7 @@ Además, si un producto ya existente intenta agregarse al producto, incrementar 
 La persistencia de la información se implementará utilizando el file system, donde los archivos “productos,json” y “carrito.json”, respaldan la información.
 No es necesario realizar ninguna implementación visual, todo el flujo se puede realizar por Postman o por el cliente de tu preferencia.
 
-Endpoint para las pruebas
+COMENTARIOS para las pruebas
 
 ::. Productos
 GETS
@@ -170,3 +170,20 @@ Aspectos a incluir
 ✓ Al trabajar con websockets, cada vez que creemos un producto nuevo, o bien cada vez que eliminemos un producto, se debe actualizar automáticamente en dicha vista la lista.
 ✓ Ya que la conexión entre una consulta HTTP y websocket no está contemplada dentro de la clase. Se recomienda que, para la creación y eliminación de un producto, Se cree un formulario simple en la vista  realTimeProducts.handlebars. Para que el contenido se envíe desde websockets y no HTTP. Sin embargo, esta no es la mejor solución, leer el siguiente punto.
 ✓ Si se desea hacer la conexión de socket emits con HTTP, deberás buscar la forma de utilizar el servidor io de Sockets dentro de la petición POST. ¿Cómo utilizarás un emit dentro del POST?
+
+COMENTARIOS PARA LAS PRUEBAS
+
+Existen dos link al correr nodemon
+HOME 
+http://localhost:8080/
+Listado de productos sin WebSocket
+
+REALTIMES PRODUCTS
+http://localhost:8080/realtimeproducts
+Formulario de alta de producto
+Listado de productos con WebSocket
+Eliminar un producto con WebSocket
+
+Probe llamar al delete desde Postman y se actualiza en el realtime
+POSTMAN
+http://localhost:8080/api/products/2
