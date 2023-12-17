@@ -38,7 +38,7 @@ const newProd = e => {
 	};
 
   socket.emit('addProd', prod);
-  listProducts()
+  //listProducts()
 
 	form.reset()
 };

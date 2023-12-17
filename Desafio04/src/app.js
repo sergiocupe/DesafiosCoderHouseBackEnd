@@ -23,7 +23,7 @@ app.use(express.static('public'))
 app.engine('handlebars',handlebars.engine()) 
 app.set('views','src/views')
 app.set('view engine', 'handlebars')
-app.use('/', viewRoutes)
+app.use('/', viewRoutes) //Configuracion de las vistas handlebars
 
  //*************** ROUTES API **************/
 
