@@ -1,6 +1,10 @@
 import express from "express"
+import { ProductManager } from "../clases/Producto.js";
 
 const viewRoutes = express.Router()
+const path="./src/json/productos.json"
+const productManager = new ProductManager(path);
+
 
 viewRoutes.get("/", async (req, res) => {
   let products = []
@@ -27,8 +31,9 @@ viewRoutes.get("/", async (req, res) => {
   res.render("home", { title: "Home", data: products })
 })
 
-viewRoutes.get("/realtimeproducts", (req, res) => {
-  res.render("realtimeproducts", { title: "RealTime Products" })
+viewRoutes.get("/realtimeproducts", async (req, res) => {
+  const productos = await productManager.getProducts();
+  res.render("realtimeproducts", { title: "RealTime Products", data: productos })
 })
 
 export default viewRoutes

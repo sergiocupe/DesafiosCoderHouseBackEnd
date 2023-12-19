@@ -35,7 +35,21 @@
     <button id='btn-form'>Agregar</button>
 </form>
 
-<div id="listadoProductos" class="product-container"></div>
+<div id="listadoProductos" class="product-container">
+    {{#each data}}
+      <div class="product-item">
+        <p>Id: {{this.id}}</p>
+        <p>Title: {{this.title}}</p>
+        <p>Description: {{this.description}}</p>
+        <p>Price: {{this.price}}</p>
+        <p>Status: {{this.status}}</p>
+        <p>Code: {{this.code}}</p>
+        <p>Stock: {{this.stock}}</p>
+        <button id=${prod.id} class='btn-del'>Eliminar</button>
+      </div>
+    {{/each}}
+
+</div>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/realTimeProducts.js"></script>

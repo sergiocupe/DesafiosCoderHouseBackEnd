@@ -37,26 +37,29 @@ const httpServer = app.listen(PORT, () => {
 });
 
 
-//*************** SOCKTES **************/
+//*************** SOCKETS **************/
 const socketServer = new Server(httpServer) 
 
 //Conexion Socket.io
 socketServer.on("connection", async (socket)=>{
   console.log("Nuevo cliente conectado");
   
-  socket.emit('getAllProducts', products)
-
   socket.on('addProd', async prod => {
     try {
      const rdo = await productManager.addProduct(prod)
-     console.log(rdo)
+     const products = await productManager.getProducts();
+     socket.emit("getAllProducts",products )  
      return rdo
     } catch (error) {
       console.log("Error al dar de alta un producto: ", error)
     }
 	})
 
-  socket.on('delProd', async id => await productManager.deleteProduct(id));
+  socket.on('delProd', async id => {
+    await productManager.deleteProduct(id)
+    const products = await productManager.getProducts();
+    socket.emit("getAllProducts",products )  
+  });
 
 });
 
