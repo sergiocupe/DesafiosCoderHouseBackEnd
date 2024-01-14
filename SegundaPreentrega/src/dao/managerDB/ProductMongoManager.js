@@ -16,7 +16,6 @@ export class Producto {
 export class ProductMongoManager {
   async getProducts(limit=10, page=1, priceOrder="", query="", category="", stockAvailability="true" ) {
     try {
-
       //si viene query lo paso para el search, deb eser en formato {prop:valor,......}
       const parsedQuery = query==="" ? {} : JSON.parse(query)
       let search = parsedQuery instanceof Object ? parsedQuery : {}
@@ -40,6 +39,7 @@ export class ProductMongoManager {
       if (limit <= 0) 
         limit = 10;
 
+        console.log(search)
       const parseProductos = await ProductModel.paginate(search, {
           page: page,
           limit: limit,

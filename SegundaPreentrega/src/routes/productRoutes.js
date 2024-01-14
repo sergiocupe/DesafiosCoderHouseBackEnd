@@ -63,7 +63,6 @@ productRouter.delete("/:pId", async (req, res) => {
 productRouter.get("/", async (req, res) => {
   try {
     const { limit, page, sort, query, category, stockAvailability } = req.query
-
     const products = new ProductMongoManager()
 
     const resultado = await products.getProducts(limit, page, sort, query, category, stockAvailability)
@@ -100,8 +99,6 @@ productRouter.post('/',uploader.single('file'), async (req,res)=>{ //tiene un mi
   try{
     const products = new ProductMongoManager()
     const newProduct = req.body
-    //const path=req.file.path.split('public').join('') //obtuve el path quitando la palabra public
-    //const added = await products.addProduct({...newProduct, thunbnail: path})  
     const resultado = await products.addProduct(newProduct)  
     if (resultado.message==="OK"){
       return res.status(200).json(resultado)
