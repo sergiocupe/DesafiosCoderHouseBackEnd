@@ -1,6 +1,6 @@
-const fs = require("fs");
+import fs from "fs"
 
-class Producto{
+export class Producto{
   constructor(title, description,price,thunbnail,code,stock)
   {
     this.title=title
@@ -12,7 +12,7 @@ class Producto{
   }
 }
 
-class ProductManager{
+export class ProductManager{
   #products
 
   constructor(path){
@@ -62,9 +62,9 @@ class ProductManager{
     const prod = this.#products.find(e => e.id === id)
 
     if (prod)
-      console.log("PRODUCTO BUSCADO:" , prod)
+      return (prod)
     else
-      console.log("Not Found")
+      return {}
   }
 
   async updateProduc(id, newProduct){
@@ -93,47 +93,3 @@ class ProductManager{
       console.log(`No se encontró un producto con el ID ${id}. No se pudo eliminar.`);
   }
 }
-
-/***************************** MIS  PRUEBA DE LA CLASES *****************************/
-
-//Instancia clase ProductManager 
-const test = async () => {
-  const productManager = new ProductManager('./productos.json')
-  let data = await productManager.getProducts();
-  console.log(data)
-
-  const producto1 = new Producto("Producto 1 Prueba","Este es un producto de Prueba",200,"Sin imagen","abc123",25)
-  await productManager.addProduct(producto1)
-
-  data = await productManager.getProducts();
-  console.log(data)
- 
-  const producto2 = new Producto("Producto 2 Prueba","Este es un producto de Prueba",200,"Sin imagen","abc1231",25)
-  productManager.addProduct(producto2)
-
-  data = await productManager.getProducts();
-  console.log(data)
- 
-  const producto3 = new Producto("Producto 3 Prueba","Este es un producto de Prueba",200,"Sin imagen","abc123",25)
-  productManager.addProduct(producto3)
-
-  const producto4 = new Producto("Producto 4 Prueba","Este es un producto actualizado",123,"Sin imagen","abc123",100)
-  await productManager.updateProduc(1,producto4);
-
-  data = await productManager.getProducts();
-  console.log(data)
-
-  await productManager.deleteProduct(1)
-  data = await productManager.getProducts();
-  console.log(data)
-  
-  //Muestra el resultado de bucar un producto por id llamando al metodo getProductById()
-   await productManager.getProductById(2)
-
-  //Devuelve Not Found porque el id 100 no existe
-  await productManager.getProductById(100) 
-}
-
-test()
-
-/***************************** FIN MIS PRUEBA DE LA CLASES *****************************/
