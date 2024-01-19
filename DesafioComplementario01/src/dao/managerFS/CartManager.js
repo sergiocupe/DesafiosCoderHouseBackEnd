@@ -20,7 +20,6 @@ export class CartManager {
       this.#carts = await this.getCarts();
       const index = this.#carts.findIndex((e) => e.id === +cId);
       
-      console.log(index);
       if (index===-1)
         return `No existen el carrito con el id ${cId}`
 
