@@ -28,17 +28,17 @@ sessionRoutes.post('/login', async (req, res) => {
       if (password==="adminCod3r123")
         req.session.user = {first_name: "Coder", last_name: "Admin", email: email, password: password, rol:"Admin"}
       else
-        return res.status(401).send({message:'Invalid Credencial'})
+        return res.status(401).send({message:'Credenciales Invalidas'})
     }
     else
     {
       const user = await userModel.findOne({email: email})
       if (!user)
       {
-        return res.status(404).send({message:'User not found'})
+        return res.status(404).send({message:'Usuario no existente'})
       }
       if (user.password !== password){
-        return res.status(401).send({message:'Invalid Credencial'})
+        return res.status(401).send({message:'Credenciales Invalidas'})
       }
       
       req.session.user = user
@@ -55,7 +55,7 @@ sessionRoutes.post('/logout', async (req, res) => {
   try{
     req.session.destroy((error)=>{
       if (error)
-        return res.status(500).send({message:'Logout failed'})
+        return res.status(500).send({message:'No se pudo cerrar la sesion'})
     })
     res.send({redirect:"http://localhost:8080/login"})
   }
