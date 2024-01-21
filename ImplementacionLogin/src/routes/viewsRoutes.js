@@ -43,11 +43,8 @@ viewRoutes.get("/product", checkAuth, async (req, res) => {
 
 viewRoutes.get("/carts/:cId", checkAuth, async (req, res) => {
   const {cId} = req.params
-
   const resultado = await cartManager.getProductsCartById(cId)
-
-  if (resultado.message==="OK")
-    res.render("cartDetails", { title: "Details Cart", data: resultado.rdo })
+  res.render("cartDetails", { title: "Details Cart", data: resultado.rdo })
 })
 
 viewRoutes.get("/realtimeproducts", async (req, res) => {
