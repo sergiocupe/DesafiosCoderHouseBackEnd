@@ -14,14 +14,12 @@ import sessionRoutes from "./routes/sessionRoutes.js";
 import passport from "passport"
 import initializePassport from "./config/passport.config.js"
 
-
 const PORT = 8080;
 const app = express();
 const productManager = new ProductMongoManager();
 const messageManager = new MessageMongoManager()
 
 //*************** MIDLEWEARES **************/
-
 app.use(express.json())
 app.use(express.urlencoded({ extended: true}))
 app.use(express.static('public'))
@@ -45,7 +43,6 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 //*************** CONFIGURACION HANDLEBARS **************/
-
 const hbs=handlebars.create({
   runtimeOptions: {
     allowProtoPropertiesByDefault : true
@@ -57,14 +54,12 @@ app.set('view engine', 'handlebars')
 app.use('/', viewRoutes) //Configuracion de las vistas handlebars
 
  //*************** ROUTES API **************/
-
 app.use('/api/products', productRouter)
 app.use('/api/carts', cartRouter)
 app.use('/api/messages', messagesRouter)
 app.use('/api/session', sessionRoutes)
 
 //*************** SERVER **************/
-
 const httpServer = app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 });
