@@ -107,6 +107,14 @@ button:hover {
   align-items: first baseline;
 }
 
+.div-login
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: first baseline;
+}
+
 .add-prod {
   max-width: 400px;
   margin: 20px auto;
@@ -183,6 +191,16 @@ button:hover {
 
 .button-paging:hover {
   background-color: #7e7e7e;
+}
+
+.btnGithub{
+  margin-left:5px;
+  background-color: rgb(247, 121, 76);
+  color: #fff;
+}
+
+.btnGithub:hover{
+  background-color: rgb(248, 98, 43);
 }
 
 .btn-prod{

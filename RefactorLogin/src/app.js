@@ -11,6 +11,8 @@ import viewRoutes from './routes/viewsRoutes.js'
 import session from 'express-session'
 import MongoStore from "connect-mongo"
 import sessionRoutes from "./routes/sessionRoutes.js";
+import passport from "passport"
+import initializePassport from "./config/passport.config.js"
 
 
 const PORT = 8080;
@@ -28,13 +30,19 @@ app.use(express.static('public'))
 app.use(session({
   secret: 'C0d3rh0us3', //constraseña secreta
   store: MongoStore.create({
-    mongoUrl: 'mongodb+srv://sergiocupe:Coder2024@coder.0nonzsv.mongodb.net/coder',
+    mongoUrl: 'mongodb+srv://sergiocupe:Coder2024@coder.0nonzsv.mongodb.net/ecommerce',
     ttl: 1000
   }),
   resave: true, //guarda la session tras actualizarla
   saveUninitialized: true //si la session esta vacia, que se guarde igual
 }))
+
 mongoose.connect("mongodb+srv://sergiocupe:Coder2024@coder.0nonzsv.mongodb.net/ecommerce")
+
+//*************** PASSPORT **************/
+initializePassport()
+app.use(passport.initialize())
+app.use(passport.session())
 
 //*************** CONFIGURACION HANDLEBARS **************/
 

@@ -288,3 +288,12 @@ Consigna
 ✓ Todos los usuarios que no sean admin deberán contar con un rol “usuario”.
 ✓ Implementar botón de “logout” para destruir la sesión y redirigir a la vista de login
 
+## Refactor Login
+
+Consigna
+
+✓ Con base en el login de nuestro entregable anterior, refactorizar para incluir los nuevos conceptos.
+✓ Se deberá contar con un hasheo de contraseña utilizando bcrypt
+✓ Se deberá contar con una implementación de passport, tanto para register como para login.
+✓ Implementar el método de autenticación de GitHub a la vista de login.
+

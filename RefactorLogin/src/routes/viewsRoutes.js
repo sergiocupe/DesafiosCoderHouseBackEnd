@@ -47,6 +47,14 @@ viewRoutes.get("/carts/:cId", checkAuth, async (req, res) => {
   res.render("cartDetails", { title: "Details Cart", data: resultado.rdo })
 })
 
+viewRoutes.get("/faillogin",checkExistingUser,(req,res)=>{
+  res.render('faillogin')
+})
+
+viewRoutes.get("/failregister",checkExistingUser,(req,res)=>{
+  res.render('failregister')
+})
+
 viewRoutes.get("/realtimeproducts", async (req, res) => {
   const resultado = await productManager.getProducts();
   if (resultado.message==="OK")
