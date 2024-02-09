@@ -25,6 +25,10 @@ const useSchema = mongoose.Schema(
       type: String,
       require: true
     },
+    cart:{
+      type: Array,
+      default:[]
+    }
   }
 )
 

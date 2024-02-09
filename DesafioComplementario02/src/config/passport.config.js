@@ -3,6 +3,7 @@ import local from 'passport-local';
 import { userModel } from "../dao/models/user.model.js";
 import { createHash, isValidPassword } from "../utils/bcrypt.js";
 import { Strategy as GithubStrategy } from "passport-github2"; //Estrategia de Github
+import { userAdmin, passAdmin } from "../utils/constants.js";
 
 const LocalStrategy = local.Strategy;
 
@@ -40,9 +41,9 @@ const initializePassport = () => {
             try {
                 let user
 
-                if(username==="adminCoder@coder.com")
+                if(username===userAdmin)
                 {
-                  if (password==="adminCod3r123")
+                  if (password===passAdmin)
                     user = {first_name: "Coder", last_name: "Admin", email: username, password: createHash(password), rol:"Admin"}
                   else
                     return done(null, false)

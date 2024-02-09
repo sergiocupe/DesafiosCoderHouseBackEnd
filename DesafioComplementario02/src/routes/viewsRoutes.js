@@ -47,12 +47,16 @@ viewRoutes.get("/carts/:cId", checkAuth, async (req, res) => {
   res.render("cartDetails", { title: "Details Cart", data: resultado.rdo })
 })
 
-viewRoutes.get("/faillogin",checkExistingUser,(req,res)=>{
+viewRoutes.get("/faillogin",(req,res)=>{
   res.render('faillogin')
 })
 
-viewRoutes.get("/failregister",checkExistingUser,(req,res)=>{
+viewRoutes.get("/failregister",(req,res)=>{
   res.render('failregister')
+})
+
+viewRoutes.get("/usercreatesuccess",(req,res)=>{
+  res.render('usercreatesuccess')
 })
 
 viewRoutes.get("/realtimeproducts", async (req, res) => {

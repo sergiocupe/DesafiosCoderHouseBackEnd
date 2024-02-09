@@ -9,8 +9,8 @@ logoutBtn.addEventListener("click", async (e)=>{
     }
   })
 
-  const {redirect} = await result.json()
-  window.location.href=redirect
+  const {url} = await result
+  window.location.href=url
   
 })
 
