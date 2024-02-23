@@ -1,16 +1,7 @@
-import { Router } from "express"
 import { ProductMongoManager } from "../dao/managerDB/ProductMongoManager.js"
-import {uploader} from '../utils/multer.js'
 
+export const getProducts = async (req, res) => {
 
-const productRouter = Router()
-
-// ** Métodos con Mongoose
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-// =-                M O N G O O  D B             -=
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=`
-
-productRouter.get("/", async (req, res) => {
   try {
     const { limit, page, sort, query, category, stockAvailability } = req.query
     const products = new ProductMongoManager()
@@ -26,9 +17,10 @@ productRouter.get("/", async (req, res) => {
   catch (err) {
     res.status(400).json({message: err})
   }
-})
 
-productRouter.get("/:pId", async (req, res) => {
+}
+
+export const getProductsById = async (req, res) => {
   try{
     const {pId}=req.params
     const products = new ProductMongoManager()
@@ -43,9 +35,9 @@ productRouter.get("/:pId", async (req, res) => {
   {
     res.status(400).json({message: "El producto no existe"})
   }
-})
+}
 
-productRouter.post('/',uploader.single('file'), async (req,res)=>{ //tiene un midleware con el file
+export const postProduct = async (req,res)=>{ 
   try{
     const products = new ProductMongoManager()
     const newProduct = req.body
@@ -58,9 +50,9 @@ productRouter.post('/',uploader.single('file'), async (req,res)=>{ //tiene un mi
   catch(err){
     res.status(400).json({message: err})
   }
-})
+}
 
-productRouter.put('/:pId',async (req,res)=>{
+export const putProduct = async (req,res)=>{
   try{
     const {pId} = req.params
     const updateProd= req.body
@@ -76,9 +68,9 @@ productRouter.put('/:pId',async (req,res)=>{
   catch(err){
     res.status(400).json({menssage: 'err'})
   }
-})
+}
 
-productRouter.delete('/:pId',async (req,res)=>{
+export const deleteProduct = async (req,res)=>{
   try{
     const {pId} = req.params
     const products = new ProductMongoManager()
@@ -93,7 +85,4 @@ productRouter.delete('/:pId',async (req,res)=>{
   catch(err){
     res.status(400).json({menssage: err})
   }
-})
-
-
-export default productRouter
+}

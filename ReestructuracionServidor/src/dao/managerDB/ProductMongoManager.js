@@ -93,8 +93,9 @@ export class ProductMongoManager {
         return {message: "ERROR" , rdo: "Faltan datos en el producto a ingresar!"}
 
       const resultado = await this.getProducts();
+      console.log(resultado)
       if (resultado.message === "OK")
-        prod = resultado.rdo.find((e) => e.code === producto.code);
+        prod = resultado.rdo.payload.find((e) => e.code === producto.code);
       else
         return {message: "ERROR" , rdo: "No se pudieron obtener los productos"}
 

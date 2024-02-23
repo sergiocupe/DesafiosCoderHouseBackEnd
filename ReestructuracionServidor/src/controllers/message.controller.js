@@ -1,15 +1,6 @@
-import { Router } from "express"
-//import { CartManager } from "../dao/managerFS/CartManager.js"
 import { MessageMongoManager } from "../dao/managerDB/MessageMongoManager.js"
 
-const messageRouter = Router()
-
-// ** Métodos con Mongoose
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-// =-                M O N G O O  D B             -=
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=`
-
-messageRouter.get("/", async (req, res) => {
+export const getMessage = async (req, res) => {
   try {
     const { limit } = req.query
     const message = new MessageMongoManager()
@@ -30,9 +21,9 @@ messageRouter.get("/", async (req, res) => {
   catch (err) {
     res.status(400).json({ message: "Error al obtener los mensajes - " + err.menssage })
   }
-})
+}
 
-messageRouter.post('/', async (req,res)=>{  
+export const postMessage = async (req, res) => {
   try{
     const message = new MessageMongoManager()
     const newMsg = req.body
@@ -45,9 +36,9 @@ messageRouter.post('/', async (req,res)=>{
   catch(err){
     res.status(400).json({message: err})
   }
-})
+}
 
-messageRouter.delete('/:mId',async (req,res)=>{
+export const deleteMessage = async (req, res) => {
   try{
     const {mId} = req.params
     const message = new MessageMongoManager()
@@ -62,6 +53,4 @@ messageRouter.delete('/:mId',async (req,res)=>{
   catch(err){
     res.status(400).json({menssage: err})
   }
-})
-
-export default messageRouter
+}

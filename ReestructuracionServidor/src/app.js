@@ -13,9 +13,16 @@ import MongoStore from "connect-mongo"
 import sessionRoutes from "./routes/sessionRoutes.js";
 import passport from "passport"
 import initializePassport from "./config/passport.config.js"
+import { Command } from 'commander';
+import { getVariables } from './config.js';
 
-const PORT = 8080;
 const app = express();
+
+const program = new Command();
+program.option('--mode <mode>', 'Modo de trabajo', 'production');
+const options = program.parse();
+const { port, mongoUrl, tockenSecret } = getVariables(options);
+
 const productManager = new ProductMongoManager();
 const messageManager = new MessageMongoManager()
 
@@ -25,17 +32,18 @@ app.use(express.urlencoded({ extended: true}))
 app.use(express.static('public'))
 
 //*************** MONGODB **************/
+
 app.use(session({
-  secret: 'C0d3rh0us3', //constraseña secreta
+  secret: tockenSecret, //constraseña secreta
   store: MongoStore.create({
-    mongoUrl: 'mongodb+srv://sergiocupe:Coder2024@coder.0nonzsv.mongodb.net/ecommerce',
+    mongoUrl: mongoUrl,
     ttl: 1000
   }),
   resave: true, //guarda la session tras actualizarla
   saveUninitialized: true //si la session esta vacia, que se guarde igual
 }))
 
-mongoose.connect("mongodb+srv://sergiocupe:Coder2024@coder.0nonzsv.mongodb.net/ecommerce")
+mongoose.connect(mongoUrl)
 
 //*************** PASSPORT **************/
 initializePassport()
@@ -60,8 +68,8 @@ app.use('/api/messages', messagesRouter)
 app.use('/api/session', sessionRoutes)
 
 //*************** SERVER **************/
-const httpServer = app.listen(PORT, () => {
-  console.log(`listening on port ${PORT}`);
+const httpServer = app.listen(port, () => {
+  console.log(`listening on port ${port}`);
 });
 
 

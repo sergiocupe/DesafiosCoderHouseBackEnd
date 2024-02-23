@@ -1,15 +1,6 @@
-import { Router } from "express"
 import { CartMongoManager } from "../dao/managerDB/CartMongoManager.js"
 
-const cartRouter = Router()
-
-
-// ** Métodos con Mongoose
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-// =-                M O N G O O  D B             -=
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=`
-
-cartRouter.get("/", async (req, res) => {
+export const getCart = async (req, res) => {
   try {
     const { limit } = req.query
     const carts = new CartMongoManager()
@@ -30,9 +21,9 @@ cartRouter.get("/", async (req, res) => {
   catch (err) {
     res.status(400).json({ message: "Error al obtener los carritos" + err.menssage })
   }
-})
+}
 
-cartRouter.get("/:cId", async (req, res) => {
+export const getCartById = async (req, res) => {
   try{
     const {cId}=req.params
     const products = new CartMongoManager()
@@ -47,9 +38,9 @@ cartRouter.get("/:cId", async (req, res) => {
   {
     res.status(400).json({message: "El carrito no existe"})
   }
-})
+}
 
-cartRouter.post('/', async (req,res)=>{ 
+export const postCart = async (req, res) => {
   try{
     const carts = new CartMongoManager()
     const resultado = await carts.addCart({products:[]})  
@@ -61,9 +52,9 @@ cartRouter.post('/', async (req,res)=>{
   catch(err){
     res.status(400).json({message: err})
   }
-})
+}
 
-cartRouter.post("/:cId/products/:pId",async (req,res)=>{
+export const postCartById = async (req, res) => {
   try{
     const {cId, pId} = req.params
     const newQuantity =  req.body.quantity
@@ -79,9 +70,9 @@ cartRouter.post("/:cId/products/:pId",async (req,res)=>{
   catch(err){
     res.status(400).json({menssage: err})
   }
-})
+}
 
-cartRouter.delete('/:cId',async (req,res)=>{
+export const deleteCartById = async (req, res) => {
   try{
     const {cId} = req.params
     const carts = new CartMongoManager()
@@ -96,10 +87,9 @@ cartRouter.delete('/:cId',async (req,res)=>{
   catch(err){
     res.status(400).json({menssage: err})
   }
-})
+}
 
-
-cartRouter.delete('/:cId/products/:pId',async (req,res)=>{
+export const deleteProductCartById = async (req, res) => {
   try{
     const {cId, pId} = req.params
     const carts = new CartMongoManager()
@@ -114,7 +104,4 @@ cartRouter.delete('/:cId/products/:pId',async (req,res)=>{
   catch(err){
     res.status(400).json({menssage: err})
   }
-})
-
-
-export default cartRouter
+}

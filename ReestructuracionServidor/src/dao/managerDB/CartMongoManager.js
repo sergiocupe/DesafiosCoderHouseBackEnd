@@ -42,7 +42,10 @@ export class CartMongoManager {
   async getProductsCartById(id) {
     try
     {
+      console.log(id)
       const cart=await CartModel.findOne({_id: id}).populate('products.product').lean()
+
+      console.log(cart)
       if (cart) 
         return {message: "OK" , rdo: cart.products}
       else 

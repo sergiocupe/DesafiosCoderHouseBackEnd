@@ -1,28 +1,25 @@
-import express from "express"
 import { ProductMongoManager } from "../dao/managerDB/ProductMongoManager.js"
 import { CartMongoManager } from "../dao/managerDB/CartMongoManager.js"
-import { checkAuth, checkExistingUser } from "../middleware/auth.js";
 
-const viewRoutes = express.Router()
 const productManager=new ProductMongoManager()
 const cartManager=new CartMongoManager()
 
-viewRoutes.get("/", checkAuth, async (req, res) => {
+export const getViewDefault = async (req, res) =>{
   const resultado = await productManager.getProducts()
 
   if (resultado.message==="OK")
     res.render("home", { title: "Home", data: resultado.rdo.payload })
-})
+}
 
-viewRoutes.get("/login",checkExistingUser,(req,res)=>{
+export const getViewLogin = async (req, res) =>{
   res.render('login')
-})
+}
 
-viewRoutes.get("/register",checkExistingUser,(req,res)=>{
+export const getViewRegister = async (req, res) =>{
   res.render('register')
-})
+}
 
-viewRoutes.get("/products", checkAuth, async (req, res) => {
+export const getViewProducts = async (req, res) =>{
   const {page, limit} = req.query
   const {user} = req.session
 
@@ -30,43 +27,42 @@ viewRoutes.get("/products", checkAuth, async (req, res) => {
 
   if (resultado.message==="OK")
     res.render("products", { title: "Products", data: resultado.rdo, user: user })
-})
+}
 
-viewRoutes.get("/product", checkAuth, async (req, res) => {
+export const getViewProductById = async (req, res) =>{
   const {pId} = req.query
 
   const resultado = await productManager.getProductById(pId)
 
   if (resultado.message==="OK")
     res.render("product", { title: "View Product", data: resultado.rdo })
-})
+}
 
-viewRoutes.get("/carts/:cId", checkAuth, async (req, res) => {
+export const getViewCartById = async (req, res) =>{
   const {cId} = req.params
   const resultado = await cartManager.getProductsCartById(cId)
   res.render("cartDetails", { title: "Details Cart", data: resultado.rdo })
-})
+}
 
-viewRoutes.get("/faillogin",(req,res)=>{
+export const getViewFailLogin = async (req, res) =>{
   res.render('faillogin')
-})
+}
 
-viewRoutes.get("/failregister",(req,res)=>{
+export const getViewFailRegister = async (req, res) =>{
   res.render('failregister')
-})
+}
 
-viewRoutes.get("/usercreatesuccess",(req,res)=>{
+export const getViewUserCreate = async (req, res) =>{
   res.render('usercreatesuccess')
-})
+}
 
-viewRoutes.get("/realtimeproducts", async (req, res) => {
+export const getViewRealTime = async (req, res) =>{
   const resultado = await productManager.getProducts();
   if (resultado.message==="OK")
     res.render("realtimeproducts", { title: "RealTime Products", data: resultado.rdo.payload })
-})
+}
 
-viewRoutes.get('/chat', async (req, res)=>{
+export const getViewChat = async (req, res) =>{
   res.render('chat')
-})
+}
 
-export default viewRoutes
