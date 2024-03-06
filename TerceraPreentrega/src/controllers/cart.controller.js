@@ -1,7 +1,8 @@
 import { CartMongoManager } from "../dao/managerDB/CartMongoManager.js"
 import { ProductMongoManager } from "../dao/managerDB/ProductMongoManager.js"
-import { TicketProductManager, Ticket } from "../dao/managerDB/TicketMongoManager.js"
+import { TicketProductManager } from "../dao/managerDB/TicketMongoManager.js"
 import { generarCodigoAleatorio } from "../utils/functions.js"
+import { TicketDTO } from "../dtos/ticket.dto.js"
 
 export const getCart = async (req, res) => {
   try {
@@ -147,8 +148,9 @@ export const purchaseCartById = async (req,res)=>{
     
     //Agrego el ticket del carrito
     const ticketManager = new TicketProductManager()
-    const ticket = new Ticket(generarCodigoAleatorio(),new Date(),totalTicket,req.user.email)
-    const rdoTicket = await ticketManager.addTicket(ticket)
+    const ticket = ()=>{generarCodigoAleatorio(),new Date(),totalTicket,req.user.email}
+    const ticketDto = new TicketDTO(ticket)
+    const rdoTicket = await ticketManager.addTicket(ticketDto)
 
     const messageFinal = prodSinStock.length>0 ? 'Compra realizada incompleta. Productos sin stock - ' + prodSinStock : 'Compra realizada de forma completa'
 
