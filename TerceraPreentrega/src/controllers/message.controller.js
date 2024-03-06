@@ -1,4 +1,5 @@
 import { MessageMongoManager } from "../dao/managerDB/MessageMongoManager.js"
+import MessageDTO from "../dtos/message.dto.js"
 
 export const getMessage = async (req, res) => {
   try {
@@ -26,7 +27,7 @@ export const getMessage = async (req, res) => {
 export const postMessage = async (req, res) => {
   try{
     const message = new MessageMongoManager()
-    const newMsg = req.body
+    const newMsg = new MessageDTO(req.body)
     const resultado = await message.addMessage(newMsg)  
     if (resultado.message==="OK"){
       return res.status(200).json(resultado)

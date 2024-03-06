@@ -14,7 +14,7 @@ import sessionRoutes from "./routes/sessionRoutes.js";
 import passport from "passport"
 import initializePassport from "./config/passport.config.js"
 import { Command } from 'commander';
-import { getVariables } from './config.js';
+import { getVariables } from './config/config.js';
 
 const app = express();
 

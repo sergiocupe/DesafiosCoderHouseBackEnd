@@ -1,3 +1,5 @@
+import UserDTO from "../dtos/user.dto.js";
+
 export const postSession = (req, res) => {
   res.render('usercreatesuccess')
 }
@@ -29,7 +31,8 @@ export const postLogout= (req, res) => {
 }
 
 export const getCurrent= (req, res) => {
-  res.send(req.user)
+  const user = new UserDTO(req.user)
+  res.send(user.getCurrentUser())
 }
 
 export const getGithub= (req, res) => {

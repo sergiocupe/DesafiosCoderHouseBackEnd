@@ -3,9 +3,9 @@ import local from 'passport-local';
 import { userModel } from "../dao/models/user.model.js";
 import { createHash, isValidPassword } from "../utils/bcrypt.js";
 import { Strategy as GithubStrategy } from "passport-github2"; //Estrategia de Github
-import { getVariables } from '../config.js';
+import { getVariables } from './config.js';
 import { Command } from 'commander';
-
+import UserDTO from "../dtos/user.dto.js";
 
 const LocalStrategy = local.Strategy;
 
@@ -25,14 +25,7 @@ const initializePassport = () => {
                 if(user){
                     return done(null, false);
                 }
-                const newUser = {
-                    first_name,
-                    last_name,
-                    email,
-                    age,
-                    password: createHash(password),
-                    rol
-                }
+                const newUser = new UserDTO({first_name,last_name,email,age,password,rol})
 
                 const result = await userModel.create(newUser);
                 return done(null, result);
@@ -51,7 +44,7 @@ const initializePassport = () => {
                 if(username===userAdmin)
                 {
                   if (password===passAdmin)
-                    user = {first_name: "Coder", last_name: "Admin", email: username, password: createHash(password), rol:"Admin"}
+                    user = {_id: 'admin_id', first_name: "Coder", last_name: "Admin", email: username, age:0, password: createHash(password), rol:"Admin"}
                   else
                     return done(null, false)
                 }
@@ -82,7 +75,6 @@ const initializePassport = () => {
         },
         async (accessToken, refreshToken, profile, done) =>{
             try{
-                console.log(profile);
                 const user = await userModel.findOne({email: profile._json.email});
                 if (!user)
                 {
@@ -107,12 +99,20 @@ const initializePassport = () => {
     ))
 
     passport.serializeUser((user, done) => {
-        done(null, user._id);
+        if (user.email === userAdmin) {
+            done(null, 'admin_id');
+        } else {
+            done(null, user._id);
+        }
     });
 
     passport.deserializeUser(async (id, done) => {
-        const user = await userModel.findOne({_id: id});
-        done(null, user);
+        if (id!='admin_id') {
+            const user = await userModel.findOne({_id: id});
+            done(null, user);
+        }
+        else
+            done(null, {_id: 'admin_id', first_name: "Coder", last_name: "Admin", email: userAdmin, age:0, password: createHash(passAdmin), rol:"Admin"});
     });
 }
 

@@ -1,4 +1,5 @@
 import { ProductMongoManager } from "../dao/managerDB/ProductMongoManager.js"
+import ProductDTO from "../dtos/product.dto.js"
 
 export const getProducts = async (req, res) => {
 
@@ -40,7 +41,7 @@ export const getProductsById = async (req, res) => {
 export const postProduct = async (req,res)=>{ 
   try{
     const products = new ProductMongoManager()
-    const newProduct = req.body
+    const newProduct = new ProductDTO(req.body)
     const resultado = await products.addProduct(newProduct)  
     if (resultado.message==="OK"){
       return res.status(200).json(resultado)
@@ -55,7 +56,7 @@ export const postProduct = async (req,res)=>{
 export const putProduct = async (req,res)=>{
   try{
     const {pId} = req.params
-    const updateProd= req.body
+    const updateProd = new ProductDTO(req.body)
     const products = new ProductMongoManager()
 
     const resultado = await products.updateProduct(pId, updateProd)
