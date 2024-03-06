@@ -2,7 +2,7 @@ import { CartMongoManager } from "../dao/managerDB/CartMongoManager.js"
 import { ProductMongoManager } from "../dao/managerDB/ProductMongoManager.js"
 import { TicketProductManager } from "../dao/managerDB/TicketMongoManager.js"
 import { generarCodigoAleatorio } from "../utils/functions.js"
-import { TicketDTO } from "../dtos/ticket.dto.js"
+import TicketDTO from "../dtos/ticket.dto.js"
 
 export const getCart = async (req, res) => {
   try {
