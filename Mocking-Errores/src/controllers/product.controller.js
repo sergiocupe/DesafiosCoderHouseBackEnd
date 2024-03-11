@@ -2,7 +2,6 @@ import { ProductMongoManager } from "../dao/managerDB/ProductMongoManager.js"
 import ProductDTO from "../dtos/product.dto.js"
 
 export const getProducts = async (req, res) => {
-
   try {
     const { limit, page, sort, query, category, stockAvailability } = req.query
     const products = new ProductMongoManager()
@@ -18,7 +17,6 @@ export const getProducts = async (req, res) => {
   catch (err) {
     res.status(400).json({message: err})
   }
-
 }
 
 export const getProductsById = async (req, res) => {

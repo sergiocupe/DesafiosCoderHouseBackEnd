@@ -2,19 +2,21 @@ import express from "express";
 import mongoose from 'mongoose';
 import handlebars from 'express-handlebars' 
 import { Server } from 'socket.io'
-import productRouter from "./routes/productRoutes.js";
-import cartRouter from "./routes/cartsRoutes.js";
-import messagesRouter from "./routes/messagesRoutes.js";
 import { ProductMongoManager } from "./dao/managerDB/ProductMongoManager.js";
 import { MessageMongoManager } from "./dao/managerDB/MessageMongoManager.js";
-import viewRoutes from './routes/viewsRoutes.js'
+import cartRouter from "./routes/cartsRoutes.js";
+import messagesRouter from "./routes/messagesRoutes.js";
 import session from 'express-session'
 import MongoStore from "connect-mongo"
+import productRouter from "./routes/productRoutes.js";
+import viewRoutes from './routes/viewsRoutes.js'
 import sessionRoutes from "./routes/sessionRoutes.js";
+import mookingRoutes from "./routes/mockingRoutes.js";
 import passport from "passport"
 import initializePassport from "./config/passport.config.js"
 import { Command } from 'commander';
 import { getVariables } from './config/config.js';
+
 
 const app = express();
 
@@ -66,6 +68,7 @@ app.use('/api/products', productRouter)
 app.use('/api/carts', cartRouter)
 app.use('/api/messages', messagesRouter)
 app.use('/api/session', sessionRoutes)
+app.use('/api/mockingproducts', mookingRoutes)
 
 //*************** SERVER **************/
 const httpServer = app.listen(port, () => {
