@@ -65,23 +65,18 @@ export class ProductMongoManager {
 
       return {message: "OK" , rdo: response}
     } catch (e) {
-      return {message: "ERROR" , rdo: "Error al recuperar los productos - " + e.message}
+      return {message: "ERROR" , rdo: "Error al recuperar los productos de la base de datos - " + e.message}
    }
   }
 
   async getProductById(id) {
-    try
-    {
       const prod=await ProductModel.findOne({_id: id}).lean()
       if (prod) 
         return {message: "OK" , rdo: prod}
       else 
-        return {message: "ERROR" , rdo: "El productos no existe"}
-    } 
-    catch (e) {
-      return {message: "ERROR" , rdo: "Error al obtener el producto - " + e.message}
-   }
-  }
+        return {message: "ERROR", rdo: "El producto no existe en la base de datos"}
+  } 
+
 
   async addProduct(producto) {
     try {
@@ -93,7 +88,7 @@ export class ProductMongoManager {
         return {message: "ERROR" , rdo: "Faltan datos en el producto a ingresar!"}
 
       const resultado = await this.getProducts();
-      console.log(resultado)
+
       if (resultado.message === "OK")
         prod = resultado.rdo.payload.find((e) => e.code === producto.code);
       else
@@ -105,7 +100,7 @@ export class ProductMongoManager {
       return {message: "OK" , rdo: "Producto dado de alta correctamente"}
     } 
     catch (e) {
-      return {message: "ERROR" , rdo: "Error al agregar el producto - " + e.message}
+      return {message: "ERROR" , rdo: "Error al agregar el producto"}
     }
   }
 
@@ -113,12 +108,14 @@ export class ProductMongoManager {
     try {
       const update = await ProductModel.updateOne({_id: id}, updateProduct)
 
-      if (update.modifiedCount>0)
+      if (update.modifiedCount>0){
         return {message: "OK" , rdo: `Producto con ID ${id} actualizado exitosamente.`}
+      }
+
       return {message: "ERROR" , rdo: `No se encontró un producto con el ID ${id}. No se pudo actualizar.`}
     } 
     catch (e) {
-      return {message: "ERROR" , rdo: "Error al momento de actualizar el producto - "+ e.message}
+      return {message: "ERROR" , rdo: "Error al momento de actualizar el producto"}
     }
   }
 
@@ -133,7 +130,7 @@ export class ProductMongoManager {
       return {message: "OK" , rdo: `Producto con ID ${id} eliminado exitosamente.`}
     } 
     catch (e) {
-      return {message: "ERROR" , rdo: "Error al momento de eliminar el producto - "+ e.message}
+      return {message: "ERROR" , rdo: "Error al momento de eliminar el producto"}
     }
   }
 }

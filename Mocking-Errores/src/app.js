@@ -16,7 +16,7 @@ import passport from "passport"
 import initializePassport from "./config/passport.config.js"
 import { Command } from 'commander';
 import { getVariables } from './config/config.js';
-
+import { ErrorHandler } from './middleware/error.js';
 
 const app = express();
 
@@ -69,6 +69,7 @@ app.use('/api/carts', cartRouter)
 app.use('/api/messages', messagesRouter)
 app.use('/api/session', sessionRoutes)
 app.use('/api/mockingproducts', mookingRoutes)
+app.use(ErrorHandler);
 
 //*************** SERVER **************/
 const httpServer = app.listen(port, () => {

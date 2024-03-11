@@ -3,8 +3,11 @@ import { ProductMongoManager } from "../dao/managerDB/ProductMongoManager.js"
 import { TicketProductManager } from "../dao/managerDB/TicketMongoManager.js"
 import { generarCodigoAleatorio } from "../utils/functions.js"
 import TicketDTO from "../dtos/ticket.dto.js"
+import CustomErrors from "../errors/CustomError.js"
+import { cartsNotFound, idErrorInfo, postCartErrorInfo } from "../errors/info.js"
+import ErrorEnum from "../errors/error.enum.js"
 
-export const getCart = async (req, res) => {
+export const getCart = async (req, res, next) => {
   try {
     const { limit } = req.query
     const carts = new CartMongoManager()
@@ -20,14 +23,20 @@ export const getCart = async (req, res) => {
       const productsLimit = resultado.rdo.slice(0, limit)
       return res.status(200).json(productsLimit)
     }
-    res.status(400).json(resultado)
+
+    CustomErrors.createError({
+      name: "Error recuperar Carritos",
+      cause: resultado.rdo,
+      message: cartsNotFound(),
+      code: ErrorEnum.CARTS_NOT_FOUND,
+    })
   } 
-  catch (err) {
-    res.status(400).json({ message: "Error al obtener los carritos" + err.menssage })
+  catch (error) {
+    next(error)
   }
 }
 
-export const getCartById = async (req, res) => {
+export const getCartById = async (req, res, next) => {
   try{
     const {cId}=req.params
     const products = new CartMongoManager()
@@ -36,11 +45,16 @@ export const getCartById = async (req, res) => {
     if (resultado.message==="OK"){
       return res.status(200).json(resultado)
     }
-    res.status(400).json(resultado)
+
+    CustomErrors.createError({
+      name: "Carrito Inexistente",
+      cause: idErrorInfo('carrito',cId),
+      message: resultado.rdo,
+      code: ErrorEnum.INVALID_ID_ERROR,
+    }) 
   }
-  catch(err)
-  {
-    res.status(400).json({message: "El carrito no existe"})
+  catch (error) {
+    next(error)
   }
 }
 
@@ -58,7 +72,7 @@ export const postCart = async (req, res) => {
   }
 }
 
-export const postCartById = async (req, res) => {
+export const postCartById = async (req, res, next) => {
   try{
     const {cId, pId} = req.params
     const newQuantity =  req.body.quantity
@@ -69,14 +83,18 @@ export const postCartById = async (req, res) => {
     if (resultado.message==="OK"){
       return res.status(200).json(resultado)
     }
-    res.status(400).json(resultado)
-  }
-  catch(err){
-    res.status(400).json({menssage: err})
+    CustomErrors.createError({
+      name: "Error Alta Cart",
+      cause: postCartErrorInfo(req.body),
+      message: resultado.rdo,
+      code: ErrorEnum.MISSING_DATA_ERROR,
+    })  
+  } catch (error) {
+    next(error)
   }
 }
 
-export const deleteCartById = async (req, res) => {
+export const deleteCartById = async (req, res, next) => {
   try{
     const {cId} = req.params
     const carts = new CartMongoManager()
@@ -86,14 +104,18 @@ export const deleteCartById = async (req, res) => {
     if (deleted.message==="OK")
       return res.status(200).json(deleted.rdo)
 
-    return res.status(404).json(deleted.rdo)
-  }
-  catch(err){
-    res.status(400).json({menssage: err})
-  }
+      CustomErrors.createError({
+        name: "Error Borrar Carrito",
+        cause: idErrorInfo('carrito',cId),
+        message: resultado.rdo,
+        code: ErrorEnum.MISSING_DATA_ERROR,
+      })  
+    } catch (error) {
+      next(error)
+    }
 }
 
-export const deleteProductCartById = async (req, res) => {
+export const deleteProductCartById = async (req, res, next) => {
   try{
     const {cId, pId} = req.params
     const carts = new CartMongoManager()
@@ -103,10 +125,14 @@ export const deleteProductCartById = async (req, res) => {
     if (deleted.message==="OK")
       return res.status(200).json(deleted.rdo)
 
-    return res.status(404).json(deleted.rdo)
-  }
-  catch(err){
-    res.status(400).json({message: err})
+    CustomErrors.createError({
+        name: "Error Borrar Producto Carrito",
+        cause: idErrorInfo('producto',pId),
+        message: resultado.rdo,
+        code: ErrorEnum.MISSING_DATA_ERROR,
+     })  
+  } catch (error) {
+      next(error)
   }
 }
 
