@@ -12,6 +12,7 @@ export const getVariables = (options) => {
         mongoUrl: process.env.MONGOURL,
         tockenSecret: process.env.TOCKENSECRET,
         userAdmin: process.env.USEADMIN,
-        passAdmin: process.env.PASSADMIN
+        passAdmin: process.env.PASSADMIN,
+        modoLogger: process.env.MODO_LOGGER
     }
 }

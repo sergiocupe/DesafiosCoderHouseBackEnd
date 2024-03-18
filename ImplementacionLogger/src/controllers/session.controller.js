@@ -6,6 +6,7 @@ export const postSession = (req, res) => {
 
 export const postLogin= (req, res) => {
     if(!req.user){
+        req.logger.info("Error de credenciales")
         return res.status(400).send({message: 'Error de credenciales'});
     }
     req.session.user = {
@@ -20,8 +21,10 @@ export const postLogin= (req, res) => {
 export const postLogout= (req, res) => {
   try{
     req.session.destroy((error)=>{
-      if (error)
+      if (error){
+        req.logger.info("No se pudo cerrar la sesion")
         return res.status(500).send({message:'No se pudo cerrar la sesion'})
+      }
     })
     res.redirect('/login')
   }

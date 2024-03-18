@@ -21,7 +21,7 @@ export class CartMongoManager {
       return {message: "OK" , rdo: parseCarritos}
     } 
     catch (e) {
-      return {message: "ERROR" , rdo: "No hay carritos"}
+      return {message: "ERROR" , rdo: "Error al recuperar los carritos de la base de datos - " + e.message}
     }
   }
 
@@ -40,18 +40,12 @@ export class CartMongoManager {
   }
 
   async getProductsCartById(id) {
-    try
-    {
-      const cart=await CartModel.findOne({_id: id}).populate('products.product').lean()
+    const cart=await CartModel.findOne({_id: id}).populate('products.product').lean()
 
-      if (cart) 
-        return {message: "OK" , rdo: cart.products}
-      else 
-        return {message: "ERROR" , rdo: "El carrito no existe o no tiene productos"}
-    } 
-    catch (e) {
-      return {message: "ERROR" , rdo: "Error al obtener los productos del carrito - " + e.message}
-   }
+    if (cart) 
+      return {message: "OK" , rdo: cart.products}
+    else 
+      return {message: "ERROR" , rdo: "El carrito no existe o no tiene productos"}
   }
 
   async addProductsInCart(cId, pId, quantity) {
@@ -90,7 +84,7 @@ export class CartMongoManager {
       return {message: "OK" , rdo: `Producto agregado/actualizado al carrito ${cId} correctamente`}
       
     } catch (e) {
-      return {message: "ERROR" , rdo: "Error al momento de actualizar el carrito - "+ e.message}    }
+      return {message: "ERROR" , rdo: "Error al momento de actualizar el carrito - " + e.message}    }
   }
 
   async addCart(products) {
@@ -105,15 +99,12 @@ export class CartMongoManager {
 
   async deleteCart(cId) {
     try {
-      const deleted = await CartModel.findOneAndUpdate(
-        {_id: cId},
-        {products:[]}
-      )
+      const deleted = await CartModel.findOneAndUpdate({_id: cId},{products:[]})
 
       return {message: "OK" , rdo: `Carrito con ID ${cId} vaciado exitosamente.`}
     } 
     catch (e) {
-      return {message: "ERROR" , rdo: "Error al momento de eliminar el carrito - "+ e.message}
+      return {message: "ERROR" , rdo: "Error al momento de eliminar el carrito"}
     }
   }
 
@@ -131,7 +122,7 @@ export class CartMongoManager {
       }
     } 
     catch (e) {
-      return {message: "ERROR" , rdo: "Error al momento de eliminar el producto en el carrito - "+ e.message}
+      return {message: "ERROR" , rdo: "Error al momento de eliminar el producto en el carrito"}
     }
   }
 

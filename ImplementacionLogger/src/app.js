@@ -2,19 +2,23 @@ import express from "express";
 import mongoose from 'mongoose';
 import handlebars from 'express-handlebars' 
 import { Server } from 'socket.io'
-import productRouter from "./routes/productRoutes.js";
-import cartRouter from "./routes/cartsRoutes.js";
-import messagesRouter from "./routes/messagesRoutes.js";
 import { ProductMongoManager } from "./dao/managerDB/ProductMongoManager.js";
 import { MessageMongoManager } from "./dao/managerDB/MessageMongoManager.js";
-import viewRoutes from './routes/viewsRoutes.js'
+import cartRouter from "./routes/cartsRoutes.js";
+import messagesRouter from "./routes/messagesRoutes.js";
 import session from 'express-session'
 import MongoStore from "connect-mongo"
+import productRouter from "./routes/productRoutes.js";
+import viewRoutes from './routes/viewsRoutes.js'
+import loggerTestRoutes from "./routes/loggerTestRoutes.js";
 import sessionRoutes from "./routes/sessionRoutes.js";
+import mookingRoutes from "./routes/mockingRoutes.js";
 import passport from "passport"
 import initializePassport from "./config/passport.config.js"
 import { Command } from 'commander';
 import { getVariables } from './config/config.js';
+import { ErrorHandler } from './middleware/error.js';
+import { addLogger } from "./utils/logger.js";
 
 const app = express();
 
@@ -30,6 +34,8 @@ const messageManager = new MessageMongoManager()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true}))
 app.use(express.static('public'))
+app.use(addLogger)
+
 
 //*************** MONGODB **************/
 
@@ -66,6 +72,9 @@ app.use('/api/products', productRouter)
 app.use('/api/carts', cartRouter)
 app.use('/api/messages', messagesRouter)
 app.use('/api/session', sessionRoutes)
+app.use('/api/mockingproducts', mookingRoutes)
+app.use('/api/loggerTest', loggerTestRoutes)
+app.use(ErrorHandler);
 
 //*************** SERVER **************/
 const httpServer = app.listen(port, () => {

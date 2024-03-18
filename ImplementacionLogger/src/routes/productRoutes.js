@@ -3,7 +3,6 @@ import {uploader} from '../utils/multer.js'
 import { getProducts, getProductsById, postProduct, putProduct, deleteProduct} from "../controllers/product.controller.js"
 import { authorization} from "../middleware/auth.js";
 
-
 const productRouter = Router()
 
 productRouter.get("/", getProducts)

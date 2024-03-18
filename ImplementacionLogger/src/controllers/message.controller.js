@@ -20,6 +20,7 @@ export const getMessage = async (req, res) => {
     res.status(400).json(resultado)
   } 
   catch (err) {
+    req.logger.error(err.menssage)
     res.status(400).json({ message: "Error al obtener los mensajes - " + err.menssage })
   }
 }
@@ -35,6 +36,7 @@ export const postMessage = async (req, res) => {
     res.status(400).json(resultado)
   }
   catch(err){
+    req.logger.fatal(err.menssage)
     res.status(400).json({message: err})
   }
 }
@@ -52,6 +54,7 @@ export const deleteMessage = async (req, res) => {
     return res.status(404).json(deleted.rdo)
   }
   catch(err){
+    req.logger.fatal(err.menssage)
     res.status(400).json({menssage: err})
   }
 }
