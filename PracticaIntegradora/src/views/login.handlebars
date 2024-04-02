@@ -1,0 +1,19 @@
+<h1>Acceso de usuario</h1>
+  <div class="form-container">
+  <form action="api/session/login" method="post" class="form-login">
+    <label>Email: </label> <input type="email" name="email"><br/><br/>
+    <label>Password: </label> <input type="password" name="password"><br>/<br/>
+    <div class="div-login">
+      <button type="submit">Iniciar Sesion</button>
+      <button type="button" class="btnGithub"><a href="/api/session/github" class="btnGithub">Iniciar con Github</a> <i class="fa fa-github"></i>
+    </div>
+    <br>
+    <div class="div-recovery">
+      <label>Te olvidaste la constraseña? <a href="/recoverypass" class="registro">Recuperala</a></label>
+    </div>
+    <br>
+    <div class="div-register">
+    <label>No tiene usuario? <a href="/register" class="registro">Registrate aquí</a></label>
+    </div>
+  </form>
+</div>
