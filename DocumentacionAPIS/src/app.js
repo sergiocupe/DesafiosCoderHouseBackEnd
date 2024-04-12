@@ -1,6 +1,8 @@
 import express from "express"
 import mongoose from 'mongoose'
 import handlebars from 'express-handlebars' 
+import swaggerJSDoc from 'swagger-jsdoc'
+import swaggerUIExpress from 'swagger-ui-express'
 import { Server } from 'socket.io'
 import { ProductMongoManager } from "./dao/managerDB/ProductMongoManager.js"
 import { MessageMongoManager } from "./dao/managerDB/MessageMongoManager.js"
@@ -19,6 +21,7 @@ import { Command } from 'commander'
 import { getVariables } from './config/config.js'
 import { ErrorHandler } from './middleware/error.js'
 import { addLogger } from "./utils/logger.js"
+import { swaggerConfiguration } from './utils/swagger-configuration.js'
 
 const app = express()
 
@@ -30,15 +33,18 @@ const { port, mongoUrl, tockenSecret } = getVariables(options)
 const productManager = new ProductMongoManager()
 const messageManager = new MessageMongoManager()
 
+
+//***************** SWAGGER ****************/
+const specs=swaggerJSDoc(swaggerConfiguration);
+app.use('/apidocs',swaggerUIExpress.serve,swaggerUIExpress.setup(specs))
+
 //*************** MIDLEWEARES **************/
 app.use(express.json())
 app.use(express.urlencoded({ extended: true}))
 app.use(express.static('public'))
 app.use(addLogger)
 
-
 //*************** MONGODB **************/
-
 app.use(session({
   secret: tockenSecret, //constraseña secreta
   store: MongoStore.create({

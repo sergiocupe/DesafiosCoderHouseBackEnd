@@ -1,0 +1,212 @@
+paths:
+  /api/products:
+    get:
+      summary: Obtener todos los productos
+      tags: 
+        - Products
+      responses:
+        '200':
+          description: Lista de productos obtenida correctamente
+        '500':
+          description: Error del servidor
+    post:
+      summary: Agregar un nuevo producto
+      tags: 
+        - Products
+      responses:
+        '200':
+          description: Producto agregado correctamente
+        '400':
+          description: Datos del producto no válidos
+        '500':
+          description: Error del servidor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/createProduct'
+
+  /api/products/{pId}:
+    get:
+      summary: Obtener un producto por ID
+      tags: 
+        - Products
+      parameters:
+        - in: path
+          name: pId
+          schema:
+            type: string
+          required: true
+          description: ID del producto a obtener
+      responses:
+        '200':
+          description: Producto obtenido correctamente
+        '404':
+          description: Producto no encontrado
+        '500':
+          description: Error del servidor
+    put:
+      summary: Actualizar un producto existente
+      tags:
+        - Products
+      parameters:
+        - name: pId
+          in: path
+          description: ID del producto a actualizar
+          schema:
+            type: string
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/updateProduct'
+      responses:
+        '200':
+          description: Producto actualizado correctamente
+        '400':
+          description: Datos del producto no válidos
+        '404':
+          description: Producto no encontrado
+        '500':
+          description: Error del servidor
+    delete:
+      summary: Eliminar un producto existente
+      tags: 
+        - Products
+      parameters:
+        - in: path
+          name: pId
+          schema:
+            type: string
+          required: true
+          description: ID del producto a eliminar
+      responses:
+        '200':
+          description: Producto eliminado correctamente
+        '404':
+          description: Producto no encontrado
+        '500':
+          description: Error del servidor
+
+components:
+  schemas:
+    Products:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id de mongo autogenerado
+        title:
+          type: String
+          description: Nombre del producto
+        description:
+          type: String
+          description: Descripción del producto
+        price:
+          type: Number
+          description: Precio del producto
+        code:
+          type: String
+          description: Codigo unico del producto
+        status:
+          type: Boolean
+          description: Estado del producto
+        category:
+          type: String
+          description: Categoria del producto
+        thunbnail:
+          type: String
+          description: Path de la imagen del producto 
+        owner:
+          type: String
+          description: Usuario creador del producto
+      example:
+        _id: ObjectId("6615429dd2a13fada5b9f660")
+        title: Pantalon de Jean
+        description: Pantalon negro de Jean Masculino
+        price: 500
+        code: ABC123
+        stock: 40
+        status: true
+        category: Ropa
+        thunbnail: http://localhost/image/pantalon.jpg
+        owner: ObjectId("66142c8098412e79f5c31950")
+  requestBodies:
+    createProduct:       
+      type: object
+      properties:
+        title:
+          type: String
+          description: Nombre del producto
+        description:
+          type: String
+          description: Descripción del producto
+        price:
+          type: Number
+          description: Precio del producto
+        code:
+          type: String
+          description: Codigo unico del producto
+        status:
+          type: Boolean
+          description: Estado del producto
+        category:
+          type: String
+          description: Categoria del producto
+        thunbnail:
+          type: String
+          description: Path de la imagen del producto 
+        owner:
+          type: String
+          description: Usuario creador del producto
+      example:
+        _id: ObjectId("6615429dd2a13fada5b9f660")
+        title: Pantalon de Jean
+        description: Pantalon negro de Jean Masculino
+        price: 500
+        code: ABC123
+        stock: 40
+        status: true
+        category: Ropa
+        thunbnail: http://localhost/image/pantalon.jpg
+        owner: ObjectId("66142c8098412e79f5c31950")
+    updateProduct:       
+      type: object
+      properties:
+        title:
+          type: String
+          description: Nombre del producto
+        description:
+          type: String
+          description: Descripción del producto
+        price:
+          type: Number
+          description: Precio del producto
+        code:
+          type: String
+          description: Codigo unico del producto
+        status:
+          type: Boolean
+          description: Estado del producto
+        category:
+          type: String
+          description: Categoria del producto
+        thunbnail:
+          type: String
+          description: Path de la imagen del producto 
+        owner:
+          type: String
+          description: Usuario creador del producto
+      example:
+        title: Pantalon de Jean
+        description: Pantalon negro de Jean Masculino
+        price: 500
+        code: ABC123
+        stock: 40
+        status: true
+        category: Ropa
+        thunbnail: http://localhost/image/pantalon.jpg
+        owner: ObjectId("66142c8098412e79f5c31950")        

@@ -1,0 +1,159 @@
+paths:
+  /api/cart:
+    get:
+      summary: Obtener todos los carritos
+      tags: 
+        - Carts
+      responses:
+        '200':
+          description: Lista de carritos obtenida correctamente
+        '500':
+          description: Error del servidor
+    post:
+      summary: Agregar un nuevo carrito
+      tags: 
+        - Carts
+      responses:
+        '200':
+          description: Carrito agregado correctamente
+        '500':
+          description: Error del servidor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Carts'
+
+  /api/cart/{cId}:
+    get:
+      summary: Obtener un carrito por ID
+      tags: 
+        - Carts
+      parameters:
+        - in: path
+          name: cId
+          schema:
+            type: string
+          required: true
+          description: ID del carrito a obtener
+      responses:
+        '200':
+          description: Carrito obtenido correctamente
+        '404':
+          description: Carrito no encontrado
+        '500':
+          description: Error del servidor
+    delete:
+      summary: Eliminar un carrito por ID
+      tags: 
+        - Carts
+      parameters:
+        - in: path
+          name: cId
+          schema:
+            type: string
+          required: true
+          description: ID del carrito a eliminar
+      responses:
+        '200':
+          description: Carrito eliminado correctamente
+        '404':
+          description: Carrito no encontrado
+        '500':
+          description: Error del servidor
+
+  /api/cart/{cId}/products/{pId}:
+    post:
+      summary: Agregar un producto a un carrito
+      tags: 
+        - Carts
+      parameters:
+        - in: path
+          name: cId
+          schema:
+            type: string
+          required: true
+          description: ID del carrito al que se agregará el producto
+        - in: path
+          name: pId
+          schema:
+            type: string
+          required: true
+          description: ID del producto que se agregará al carrito
+      responses:
+        '200':
+          description: Producto agregado correctamente al carrito
+        '400':
+          description: Datos del producto no válidos
+        '404':
+          description: Producto o carrito no encontrado
+        '500':
+          description: Error del servidor
+    delete:
+      summary: Eliminar un producto de un carrito
+      tags: 
+        - Carts
+      parameters:
+        - in: path
+          name: cId
+          schema:
+            type: string
+          required: true
+          description: ID del carrito del que se eliminará el producto
+        - in: path
+          name: pId
+          schema:
+            type: string
+          required: true
+          description: ID del producto a eliminar del carrito
+      responses:
+        '200':
+          description: Producto eliminado correctamente del carrito
+        '404':
+          description: Producto o carrito no encontrado
+        '500':
+          description: Error del servidor
+
+/api/cart/{cId}/purchase:
+    post:
+      summary: Realizar la compra de un carrito
+      tags: 
+        - Carts
+      parameters:
+        - in: path
+          name: cId
+          schema:
+            type: string
+          required: true
+          description: ID del carrito que se comprará y generará el ticket
+      responses:
+        '200':
+          description: Compra realizada correctamente
+        '400':
+          description: Error al procesar la compra
+        '500':
+          description: Error del servidor
+
+components:
+  schemas:
+    Carts:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              product:
+                type: string
+                description: ID del producto
+              quantity:
+                type: number
+                description: Cantidad del producto en el carrito
+      example:
+        products:
+          - product: "abc123"
+            quantity: 2
+          - product: "def456"
+            quantity: 1
