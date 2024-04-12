@@ -387,3 +387,9 @@ El admin pueda borrar cualquier producto, aún si es de un owner.
 
 ✓ Además, modificar la lógica de carrito para que un usuario premium NO pueda agregar a su carrito un producto que le pertenece
 ✓ Implementar una nueva ruta en el router de api/users, la cual será /api/users/premium/:uid  la cual permitirá cambiar el rol de un usuario, de “user” a “premium” y viceversa.
+
+## Documentar API
+Realizar la configuración necesaria para tener documentado tu proyecto final a partir de Swagger.
+✓ Se debe tener documentado el módulo de productos.
+✓ Se debe tener documentado el módulo de carrito
+✓ No realizar documentación de sesiones
