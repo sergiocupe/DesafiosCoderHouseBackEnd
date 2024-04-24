@@ -45,6 +45,7 @@ export const getCartById = async (req, res, next) => {
     const products = new CartMongoManager()
 
     const resultado = await products.getProductsCartById(cId)
+
     if (resultado.message==="OK"){
       return res.status(200).json(resultado)
     }

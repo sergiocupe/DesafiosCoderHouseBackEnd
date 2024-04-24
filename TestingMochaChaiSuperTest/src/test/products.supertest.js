@@ -6,7 +6,7 @@ const requester = supertest("http://localhost:8080")
 
 describe("Testing BackEnd Ecommerce", () => {
 
-  let sessionCookie; // Variable para almacenar la cookie de sesión
+  let sessionCookie // Variable para almacenar la cookie de sesión
 
   // Hook "before" para realizar el inicio de sesión antes de ejecutar las pruebas
   before(async () => {
@@ -16,10 +16,10 @@ describe("Testing BackEnd Ecommerce", () => {
       .send({
         email: 'luciano@gmail.com',
         password: '1234'
-      });
+      })
 
     // Verifica que la solicitud de inicio de sesión haya sido exitosa
-    expect(loginResponse.status).to.equal(302);
+    expect(loginResponse.status).to.equal(302)
 
     // Extrae la cookie de sesión de la respuesta de inicio de sesión y almacénala en sessionCookie
     sessionCookie = loginResponse.headers['set-cookie'].map(cookie => cookie.split(';')[0]).join(';');
@@ -29,20 +29,20 @@ describe("Testing BackEnd Ecommerce", () => {
     let product = listProducts.rdo.payload.find((p) => p.code === "ACF9090")
     let id = product && product.id
     if (id) {
-      await requester.delete(`/api/products/${id}`).set('Cookie', sessionCookie) 
+      await requester.delete(`/api/products/${id}`).set('Cookie', sessionCookie)
     }
-    
+
     //elimina el producto para el test de update
     product = listProducts.rdo.payload.find((p) => p.code === "AAA0001")
     id = product && product.id
     if (id) {
-      await requester.delete(`/api/products/${id}`).set('Cookie', sessionCookie) 
+      await requester.delete(`/api/products/${id}`).set('Cookie', sessionCookie)
     }
-  });
+  })
 
   describe("Test de endpoint de productos", () => {
-   
-   it("El endpoint POST /api/products debe crear un producto correctamente", async () => {
+
+    it("El endpoint POST /api/products debe crear un producto correctamente", async () => {
       const productMock = {
         title: "Pantalon Joggins",
         description: "Pantalon Joggins de color azul",
@@ -56,14 +56,14 @@ describe("Testing BackEnd Ecommerce", () => {
       }
 
       const { statusCode, _body } = await requester
-        .post("/api/products")  
-        .set('Cookie', sessionCookie) 
+        .post("/api/products")
+        .set('Cookie', sessionCookie)
         .send(productMock)
 
-      expect(statusCode).to.be.eql(200);
+      expect(statusCode).to.be.eql(200)
     })
 
-   it("Si se desea crear un producto con el campo category que no sea de los Enum, debe responder con un status 404", async () => {
+    it("Si se desea crear un producto con el campo category que no sea de los Enum, debe responder con un status 404", async () => {
       const productMock = {
         title: "Pantalon Joggins",
         description: "Pantalon Joggins de color azul",
@@ -77,20 +77,20 @@ describe("Testing BackEnd Ecommerce", () => {
       }
 
       const { statusCode } = await requester
-        .post("/api/products")  
-        .set('Cookie', sessionCookie) 
+        .post("/api/products")
+        .set('Cookie', sessionCookie)
         .send(productMock)
-      expect(statusCode).to.be.equal(404);
+      expect(statusCode).to.be.equal(404)
     })
 
     it("Al obtener los productos con el método GET, la respuesta debe tener los campos status y payload. Además, payload debe ser de tipo arreglo", async () => {
 
       const { statusCode, _body } = await requester
-        .get("/api/products");
-      expect(statusCode).to.be.equal(200);
-      expect(_body.message).to.be.equal("OK");
-      expect(_body.rdo.payload).to.be.an("array");
-      expect(_body.rdo.status).to.be.equal("success");
+        .get("/api/products")
+      expect(statusCode).to.be.equal(200)
+      expect(_body.message).to.be.equal("OK")
+      expect(_body.rdo.payload).to.be.an("array")
+      expect(_body.rdo.status).to.be.equal("success")
     })
 
     it("El método PUT debe poder actualizar correctamente un producto determinado", async () => {
@@ -104,41 +104,43 @@ describe("Testing BackEnd Ecommerce", () => {
         category: "Perfume",
         thunbnail: "",
         owner: "660b24a0bd3b28e71909c81a"
-      };
+      }
 
       const { statusCode, _body } = await requester
-        .post("/api/products")  
-        .set('Cookie', sessionCookie) 
+        .post("/api/products")
+        .set('Cookie', sessionCookie)
         .send(productMock)
 
-      expect(statusCode).to.be.eql(200);
+      expect(statusCode).to.be.eql(200)
 
-      const { _body: listProducts } = await requester.get("/api/products?limit=5000");
+      const { statusCode: statusCode1, _body: listProducts } = await requester.get("/api/products?limit=5000")
 
-      const product = listProducts.rdo.payload.find((p) => p.code === "AAA0001");;
+      expect(statusCode1).to.be.eql(200)
+
+      const product = listProducts.rdo.payload.find((p) => p.code === "AAA0001")
       const id = product.id
 
       const modifiedProduct = {
         title: "Perfume de 100ml",
         price: 4000,
         stock: 200,
-      };
+      }
 
       await requester
         .put(`/api/products/${id}`)
-        .set('Cookie', sessionCookie) 
-        .send(modifiedProduct);
+        .set('Cookie', sessionCookie)
+        .send(modifiedProduct)
 
-      const { _body: updatedProducts } = await requester.get("/api/products?limit=5000");
-        
-      const products = updatedProducts.rdo.payload;
-      const updatedProduct = products.find((p) => p._id === id);
+      const { _body: updatedProducts } = await requester.get("/api/products?limit=5000")
 
-      expect(updatedProduct.title).to.be.equal(modifiedProduct.title);
-      expect(updatedProduct.price).to.be.equal(modifiedProduct.price);
-    });
+      const products = updatedProducts.rdo.payload
+      const updatedProduct = products.find((p) => p._id === id)
 
-    
+      expect(updatedProduct.title).to.be.equal(modifiedProduct.title)
+      expect(updatedProduct.price).to.be.equal(modifiedProduct.price)
+    })
+
+
     it("El método DELETE debe poder borrar un producto de la base", async () => {
       const productMock = {
         title: "Remera Azul",
@@ -150,28 +152,28 @@ describe("Testing BackEnd Ecommerce", () => {
         category: "Ropa",
         thunbnail: "",
         owner: "660b24a0bd3b28e71909c81a"
-      };
+      }
 
       const { statusCode, _body } = await requester
-        .post("/api/products")  
-        .set('Cookie', sessionCookie) 
+        .post("/api/products")
+        .set('Cookie', sessionCookie)
         .send(productMock)
 
-      expect(statusCode).to.be.eql(200);
+      expect(statusCode).to.be.eql(200)
 
-      const { _body: listProducts } = await requester.get("/api/products?limit=5000");
+      const { _body: listProducts } = await requester.get("/api/products?limit=5000")
 
-      const product = listProducts.rdo.payload.find((p) => p.code === "BBB0001");;
+      const product = listProducts.rdo.payload.find((p) => p.code === "BBB0001")
       const id = product.id
 
       await requester
-      .delete(`/api/products/${id}`)
-      .set('Cookie', sessionCookie) 
+        .delete(`/api/products/${id}`)
+        .set('Cookie', sessionCookie)
 
-      const { _body: listProducts1 } = await requester.get("/api/products?limit=5000");
-      const products = listProducts1.rdo.payload;
-      const deleteProduct = products.find((p) => p._id === id);
-      expect(deleteProduct).to.not.exist;
+      const { _body: listProducts1 } = await requester.get("/api/products?limit=5000")
+      const products = listProducts1.rdo.payload
+      const deleteProduct = products.find((p) => p._id === id)
+      expect(deleteProduct).to.not.exist
     })
   })
- })
+})

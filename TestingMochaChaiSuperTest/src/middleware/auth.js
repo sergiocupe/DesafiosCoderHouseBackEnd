@@ -36,6 +36,7 @@ export const checkLogin=async (req,res,next) =>{
 
 export const authorization =(roles)=>{
   return async(req,res,next)=>{
+
    if (req.session?.user)
     {
       const userRole = req.session.user.rol
