@@ -94,7 +94,7 @@ export const isOwner = async (req, res, next) => {
       const product = await productManager.getProductById(productId)
 
       if (!product) {
-        return res.status(404).send({ error: 'Product no encontrado' })
+        return res.status(404).send({ error: 'Producto no encontrado' })
       }
 
       if (String(product.rdo.owner) !== String(userId)) {

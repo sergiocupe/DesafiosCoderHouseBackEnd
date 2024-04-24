@@ -64,6 +64,7 @@ export const postProduct = async (req, res, next) => {
     const products = new ProductMongoManager()
     const newProduct = new ProductDTO(req.body)
     const resultado = await products.addProduct(newProduct)
+    
     if (resultado.message === "OK") {
       return res.status(200).json(resultado)
     }
@@ -84,6 +85,7 @@ export const postProduct = async (req, res, next) => {
 
 export const putProduct = async (req, res, next) => {
   try {
+
     const { pId } = req.params
     const updateProd = new ProductDTO(req.body)
     const products = new ProductMongoManager()

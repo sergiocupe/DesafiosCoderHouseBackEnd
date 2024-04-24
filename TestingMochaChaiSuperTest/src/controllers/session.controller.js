@@ -17,6 +17,7 @@ export const postLogin= (req, res) => {
         req.logger.info("Error de credenciales")
         return res.status(400).send({message: 'Error de credenciales'})
     }
+
     req.session.user = {
         first_name: req.user.first_name,
         last_name: req.user.last_name,
