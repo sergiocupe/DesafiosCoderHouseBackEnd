@@ -5,7 +5,7 @@
   "main": "src/app.js",
   "type": "module",
   "scripts": {
-    "test": "mocha src/test/carts.supertest.js"
+    "test": "mocha src/test/products.supertest.js"
   },
   "keywords": [],
   "author": "",

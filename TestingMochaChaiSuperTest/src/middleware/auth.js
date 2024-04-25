@@ -37,6 +37,7 @@ export const checkLogin=async (req,res,next) =>{
 export const authorization =(roles)=>{
   return async(req,res,next)=>{
 
+    console.log("ACA", req.session)
    if (req.session?.user)
     {
       const userRole = req.session.user.rol
@@ -66,7 +67,7 @@ export const checkAutorizationProduct = async (req, res, next) => {
       const product = await productManager.getProductById(productId)
 
       if (!product) {
-        return res.status(404).send({ error: 'Product no encontrado' })
+        return res.status(404).send({ error: 'Producto no encontrado' })
       }
 
       if (String(product.rdo.owner) === String(userId)) {
