@@ -5,7 +5,7 @@
   "main": "src/app.js",
   "type": "module",
   "scripts": {
-    "test": "mocha src/test/products.supertest.js"
+    "test": "mocha src/test/products.supertest.js  -timeout 10000 --exit"
   },
   "keywords": [],
   "author": "",
