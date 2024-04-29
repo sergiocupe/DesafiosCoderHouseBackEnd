@@ -18,14 +18,14 @@ const initializePassport = () => {
     passport.use('register', new LocalStrategy(
         {passReqToCallback: true, usernameField: 'email'},
         async (req, username, password, done) => {
-            const {first_name, last_name, email, age, rol} = req.body
+            const {first_name, last_name, email, age, rol, imgProfile} = req.body
             //const rol='Usuario'
             try {
                 const user = await UserModel.findOne({email: username})
                 if(user){
                     return done(null, false)
                 }
-                const newUser = new UserDTO({first_name,last_name,email,age,password,rol})
+                const newUser = new UserDTO({first_name,last_name,email,age,password,rol,imgProfile})
 
                 const result = await UserModel.create(newUser)
                 return done(null, result)

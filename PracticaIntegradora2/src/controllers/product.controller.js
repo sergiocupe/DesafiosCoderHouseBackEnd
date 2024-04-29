@@ -49,7 +49,7 @@ export const getProductsById = async (req, res, next) => {
     req.logger.info("Producto Inexistente")
     CustomErrors.createError({
       name: "Producto Inexistente",
-      cause: idErrorInfo('producto',pId),
+      cause: idErrorInfo('producto',pId), 
       message: resultado.rdo,
       code: ErrorEnum.INVALID_ID_ERROR,
     })
@@ -62,7 +62,7 @@ export const getProductsById = async (req, res, next) => {
 export const postProduct = async (req, res, next) => {
   try {
     const products = new ProductMongoManager()
-    const newProduct = new ProductDTO(req.body)
+    const newProduct = new ProductDTO( {...req.body, thunbnail: req.file.filename} )
     const resultado = await products.addProduct(newProduct)
     
     if (resultado.message === "OK") {

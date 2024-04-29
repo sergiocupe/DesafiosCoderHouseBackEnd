@@ -4,31 +4,52 @@ const userCollection = "users"
 
 const useSchema = mongoose.Schema(
   {
-    first_name: {
+    "first_name": {
       type: String,
       required: true 
     },
-    last_name: {
+    "last_name": {
       type: String,
       required: true
     },
-    email: {
+    "email": {
       type: String,
       unique: true,
       require: true
     },
-    password: {
+    "password": {
       type: String,
       required: true
     },
-    rol: {
+    "rol": {
       type: String,
       require: true
     },
-    cart:{
+    "cart":{
       type: Array,
       default:[]
-    }
+    },
+    "documents":{
+      type: Array,
+      default:[]
+    },
+    "imgProfile": String,
+    "last_connection": {
+      type: Date,
+      default: Date.now
+    },
+    "identificacion":{
+      type: Boolean,
+      default:false
+    },
+    "comprobanteDomicilio":{
+      type: Boolean,
+      default:false
+    },
+    "estadoCuenta":{
+      type: Boolean,
+      default:false
+    },
   }
 )
 

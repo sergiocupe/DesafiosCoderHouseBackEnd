@@ -30,6 +30,10 @@ export const postChangeRolUser = () => {
     return 'No se pudo cambiar el rol del usuario'
 }
 
+export const postChangeLastLogin = () => {
+    return 'No se pudo actualizar la fecha de login del usuario'
+}
+
 export const cartsNotFound = () => {
     return 'No se pudieron recuperar los carritos'
 }
@@ -40,4 +44,12 @@ export const recoveryPassFaild = () => {
 
 export const passwordRepet = () => {
     return 'La contraseña no puede ser igual a la actual'
+}
+
+export const postAddDocumentsUser = () => {
+    return 'No se pudo agregar los documentos al usuarios informado'
+}
+
+export const postErrorDocumentsUser = () => {
+    return 'No se pudo cambiar el rol del usuario porque falta documentacion'
 }

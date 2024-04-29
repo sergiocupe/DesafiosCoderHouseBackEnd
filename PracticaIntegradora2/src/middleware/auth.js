@@ -36,8 +36,6 @@ export const checkLogin=async (req,res,next) =>{
 
 export const authorization =(roles)=>{
   return async(req,res,next)=>{
-
-    console.log("ACA", req.session)
    if (req.session?.user)
     {
       const userRole = req.session.user.rol

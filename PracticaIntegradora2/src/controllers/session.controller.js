@@ -1,18 +1,28 @@
 import UserDTO from "../dtos/user.dto.js"
 import {UserMongoManager} from '../dao/managerDB/UserMongoManager.js'
 import CustomErrors from "../errors/CustomError.js"
-import { postChangeRolUser, recoveryPassFaild, passwordRepet } from "../errors/info.js"
+import { postChangeRolUser, recoveryPassFaild, passwordRepet, postChangeLastLogin, postAddDocumentsUser, postErrorDocumentsUser } from "../errors/info.js"
 import ErrorEnum from "../errors/error.enum.js"
 import MailingService from "../utils/mailing.js"
 import { generateResetToken } from "../utils/functions.js"
 import { TokenMongoManager } from "../dao/managerDB/TokenMongoManager.js"
 import { createHash, isValidPassword } from "../utils/bcrypt.js"
+import { Command } from "commander"
+import { getVariables } from "../config/config.js"
+
+const program = new Command()
+program.option('--mode <mode>', 'Modo de trabajo', 'production')
+const options = program.parse()
+const { userAdmin } = getVariables(options)
 
 export const postSession = (req, res) => {
   res.render('usercreatesuccess')
 }
 
-export const postLogin= (req, res) => {
+export const postLogin = async (req, res, next) => {
+  try {
+    let resultado
+
     if(!req.user){
         req.logger.info("Error de credenciales")
         return res.status(400).send({message: 'Error de credenciales'})
@@ -24,7 +34,32 @@ export const postLogin= (req, res) => {
         email: req.user.email,
         rol: req.user.rol
     }
-    res.redirect('/products')
+
+    if (req.user.email!=userAdmin)
+    {
+      const user = new UserMongoManager()
+      resultado = await user.changeLastConnection(req.user.email)
+    }
+    else
+     resultado = {message: "OK"}
+
+    if (resultado.message === "OK") {
+      return res.redirect('/products')
+    }
+
+    req.logger.error("Error al cambiar la Fecha de Login")
+
+    CustomErrors.createError({
+      name: "Error Fecha Login",
+      cause: postChangeLastLogin(),
+      message: resultado.rdo,
+      code: ErrorEnum.MISSING_DATA_ERROR,
+    })  
+
+  } catch (error) {
+    req.logger.fatal(error.message)
+    next(error)
+  }
 }
 
 export const postLogout= (req, res) => {
@@ -57,6 +92,21 @@ export const changeRolUser = async (req, res, next) => {
     const { uId } = req.params
     
     const userMongoManager = new UserMongoManager()
+
+    const user = await userMongoManager.getUserById(uId)
+
+    if ((!user.rdo.identificacion || !user.rdo.estadoCuenta || !user.rdo.comprobanteDomicilio) && (user.rdo.rol==="Usuario"))
+    {
+      req.logger.error("Error al cambiar el Rol del Usuario")
+
+      CustomErrors.createError({
+        name: "Error Cambio Rol Usuario",
+        cause: postErrorDocumentsUser(),
+        message: "Faltan documentos en el usuario",
+        code: ErrorEnum.MISSING_DATA_ERROR,
+      })  
+    }
+
     const resultado = await userMongoManager.changeRol(uId)
 
     if (resultado.message === "OK") {
@@ -154,4 +204,61 @@ export const resetPass = async (req, res, next) => {
     req.logger.fatal(error.message)
     next(error)
   }
+}
+
+export const addDocuments = async (req, res, next) => {
+  try {
+    const { uId } = req.params
+    const documentNames = req.files.map(file => file.filename);
+    let identificacion,comprobanteDomicilio, estadoCuenta= undefined;
+
+    const userMongoManager = new UserMongoManager()
+    const user = await userMongoManager.getUserById(uId)
+
+    const documentsUser = user.documents
+
+    if (documentsUser) {
+      identificacion = documentsUser.find(doc=>doc.name==="Identificacion") 
+      comprobanteDomicilio = documentsUser.find(doc=>doc.name==="ComprobanteDomicilio") 
+      estadoCuenta = documentsUser.find(doc=>doc.name==="EstadoCuenta") 
+    }
+
+    const docIdentificacion = documentNames.find(doc=>doc.toUpperCase().includes("IDENTIFICACION")) 
+    const docDomicilio = documentNames.find(doc=>doc.toUpperCase().includes("COMPROBANTEDOMICILIO")) 
+    const docEstadoCuenta = documentNames.find(doc=>doc.toUpperCase().includes("ESTADOCUENTA")) 
+
+    if (docIdentificacion) {
+      identificacion={"Identificacion": docIdentificacion}
+      await userMongoManager.updateStatusDocument(uId, 'identificacion')
+    }
+
+    if (docDomicilio) {
+      comprobanteDomicilio={"ComprobanteDomicilio": docDomicilio}
+      await userMongoManager.updateStatusDocument(uId, 'comprobanteDomicilio')
+    }
+
+    if (docEstadoCuenta) {
+      estadoCuenta={"EstadoCuenta": docEstadoCuenta}
+      await userMongoManager.updateStatusDocument(uId, 'estadoCuenta')
+    }
+
+    const resultado = await userMongoManager.addDocumentosByUser(uId, [identificacion,comprobanteDomicilio,estadoCuenta])
+
+    if (resultado.message === "OK") {
+      return res.status(200).json(resultado)
+    }
+
+    req.logger.error("Error al agregar documentos del Usuario")
+
+    CustomErrors.createError({
+      name: "Error Documentos de Usuario",
+      cause: postAddDocumentsUser(),
+      message: resultado.rdo,
+      code: ErrorEnum.MISSING_DATA_ERROR,
+    })  
+  } catch (error) {
+    req.logger.fatal(error.message)
+    next(error)
+  }
+
 }

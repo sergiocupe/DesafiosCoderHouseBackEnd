@@ -1,9 +1,10 @@
 <h1>Registrar Usuario</h1>
   <div class="form-container">
-    <form action="api/session/register" method="post" class="form-register">
+    <form action="/api/session/register" method="post" class="form-register">
       <label>Nombre:</label> <input type="text" name="first_name"><br/>
       <label>Apellido:</label> <input type="text" name="last_name"><br/>
       <label>Email:</label> <input type="text" name="email"><br/>
+      <label>Foto Perfil:</label> <input type="file" name="imgProfile"><br/>
       <label>Password:</label> <input type="password" name="password"><br/>
       <label>Rol:</label>
       <select id="rol" name="rol" style="width: 40%;">

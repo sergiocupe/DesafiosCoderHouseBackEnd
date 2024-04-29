@@ -1,5 +1,5 @@
 import { Router } from "express"
-import {uploader} from '../utils/multer.js'
+import { dynamicFolder, uploader } from '../utils/multer.js'
 import { getProducts, getProductsById, postProduct, putProduct, deleteProduct} from "../controllers/product.controller.js"
 import { authorization, isOwner} from "../middleware/auth.js"
 
@@ -9,7 +9,7 @@ productRouter.get("/", getProducts)
 
 productRouter.get("/:pId", getProductsById)
 
-productRouter.post('/', authorization(['Admin','Premium']), uploader.single('file'), postProduct)
+productRouter.post('/', dynamicFolder('products'), authorization(['Admin','Premium']), uploader.single('thunbnail'), postProduct)
 
 productRouter.put('/:pId', authorization(['Admin', 'Premium']), isOwner, putProduct)
 

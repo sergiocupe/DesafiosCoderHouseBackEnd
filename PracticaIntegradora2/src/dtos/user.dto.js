@@ -7,6 +7,7 @@ class UserDTO{
     this.last_name=user.last_name
     this.email=user.email
     this.password=createHash(user.password)
+    this.imgProfile= user.imgProfile
     this.rol=user.rol
     this.cart=user.cart
   }
