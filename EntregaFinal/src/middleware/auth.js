@@ -40,7 +40,7 @@ export const authorization =(roles)=>{
     {
       const userRole = req.session.user.rol
       if (!roles.includes(userRole)) {
-        return res.status(403).send({error: 'No permissions'})
+        return res.status(403).send({error: 'No tiee Permiso'})
       }
     }
     else

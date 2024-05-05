@@ -4,7 +4,8 @@ const ErrorEnum = {
     CARTS_NOT_FOUND: 3,
     PRODUCTS_NOT_FOUND: 4,
     INVALID_ID_ERROR: 5,
-    MISSING_DATA_ERROR: 6
+    MISSING_DATA_ERROR: 6,
+    USERS_NOT_FOUND: 7
 }
 
 export default ErrorEnum

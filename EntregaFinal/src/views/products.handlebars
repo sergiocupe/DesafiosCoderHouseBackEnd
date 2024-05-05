@@ -7,6 +7,9 @@
     </div>
     <button id="logoutBtn" type="button" class="btnCerrarSesion">Cerrar Sesion</button>
   </div>
+  <div class="div-cart">
+      <button id="viewCartBtn" name="btn-view-cart" class='bntViewCart'>Ver Carrito</button> 
+  </div>
   <div id="listadoProductos" class="product-container">
     {{#each data.payload}}
       <div class="product-item">
@@ -19,7 +22,7 @@
         <p><b>Code:</b> {{this.code}}</p>
         <p><b>Stock:</b> {{this.stock}}</p>
         <div class="product-buttons">
-          <button id={{this._id}} name="btn-add-cart" class='btnAddCart'>Agregar al Carrito</button>
+          <button id={{this._id}} name="btn-add-cart" class='btnAddCart'>Agregar al Carrito</button> 
           <button id={{this._id}} name="btn-view-prod" class='btnProd'>Ver Producto</button>
         </div>
       </div>

@@ -1,0 +1,216 @@
+debug: Este es un log de prueba Debug
+http: Este es un log de prueba Http
+info: Este es un log de prueba Info
+debug: Este es un log de prueba Debug
+http: Este es un log de prueba Http
+info: Este es un log de prueba Info
+info: Error recuperar los Usuarios
+info: Error recuperar los Usuarios
+info: Error recuperar los Usuarios
+info: Error Eliminar los Usuarios de última conexión
+info: Error Eliminar los Usuarios de última conexión
+debug: Se obtuvieron los productos del carrito
+debug: Se recorren los productos del carrito
+debug: Item con Id: 65a3f62569eff29aac06e897
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e895
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e89e
+debug: Cantidad <= Stock 
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e897
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e89e
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e895
+debug: Se obtuvieron los productos del carrito
+debug: Se recorren los productos del carrito
+debug: Item con Id: 65a3f62569eff29aac06e897
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e895
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e89e
+debug: Cantidad <= Stock 
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e897
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e895
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e89e
+debug: Se obtuvieron los productos del carrito
+debug: Se recorren los productos del carrito
+debug: Item con Id: 65a3f62569eff29aac06e897
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e895
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e89e
+debug: Cantidad <= Stock 
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e897
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e895
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e89e
+debug: Se obtuvieron los productos del carrito
+debug: Se recorren los productos del carrito
+debug: Item con Id: 65a3f62569eff29aac06e897
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e895
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e89e
+debug: Cantidad <= Stock 
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e895
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e897
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e89e
+debug: Se obtuvieron los productos del carrito
+debug: Se recorren los productos del carrito
+debug: Item con Id: 65a3f62569eff29aac06e897
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e895
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e89e
+debug: Cantidad <= Stock 
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e897
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e89e
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e895
+debug: Se obtuvieron los productos del carrito
+debug: Se recorren los productos del carrito
+debug: Item con Id: 65a3f62569eff29aac06e897
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e895
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e89e
+debug: Cantidad <= Stock 
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e897
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e89e
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e895
+debug: Se obtuvieron los productos del carrito
+debug: Se recorren los productos del carrito
+debug: Item con Id: 65a3f62569eff29aac06e897
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e895
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e89e
+debug: Cantidad <= Stock 
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e897
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e89e
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e895
+debug: Se obtuvieron los productos del carrito
+debug: Se recorren los productos del carrito
+debug: Item con Id: 65a3f62569eff29aac06e897
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e895
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e89e
+debug: Cantidad <= Stock 
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e895
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e897
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e89e
+debug: Se obtuvieron los productos del carrito
+debug: Se recorren los productos del carrito
+debug: Item con Id: 65a3f62569eff29aac06e897
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e895
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e89e
+debug: Cantidad <= Stock 
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e897
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e89e
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e895
+debug: Se obtuvieron los productos del carrito
+debug: Se recorren los productos del carrito
+debug: Item con Id: 65a3f62569eff29aac06e897
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e895
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e89e
+debug: Cantidad <= Stock 
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e895
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e897
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e89e
+debug: Se obtuvieron los productos del carrito
+debug: Se recorren los productos del carrito
+debug: Item con Id: 65a3f62569eff29aac06e897
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e895
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e89e
+debug: Cantidad <= Stock 
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e897
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e89e
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e895
+debug: Se obtuvieron los productos del carrito
+debug: Se recorren los productos del carrito
+debug: Item con Id: 65a3f62569eff29aac06e897
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e895
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e89e
+debug: Cantidad <= Stock 
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e897
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e89e
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e895
+debug: Se genero el ticket correctamente
+debug: Se obtuvieron los productos del carrito
+debug: Se recorren los productos del carrito
+debug: Item con Id: 65a3f62569eff29aac06e897
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e895
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e89e
+debug: Cantidad <= Stock 
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e89e
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e895
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e897
+debug: Se genero el ticket correctamente
+debug: Se obtuvieron los productos del carrito
+debug: Se recorren los productos del carrito
+debug: Item con Id: 65a3f62569eff29aac06e897
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e895
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e89e
+debug: Cantidad <= Stock 
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e895
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e89e
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e897
+debug: Se genero el ticket correctamente
+debug: Se obtuvieron los productos del carrito
+debug: Se recorren los productos del carrito
+debug: Item con Id: 65a3f62569eff29aac06e897
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e895
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e89e
+debug: Cantidad <= Stock 
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e895
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e897
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e89e
+debug: Se genero el ticket correctamente
+debug: Se obtuvieron los productos del carrito
+debug: Se recorren los productos del carrito
+debug: Item con Id: 65a3f62569eff29aac06e897
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e895
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e89e
+debug: Cantidad <= Stock 
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e897
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e89e
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e895
+debug: Se genero el ticket correctamente
+debug: Se obtuvieron los productos del carrito
+debug: Se recorren los productos del carrito
+debug: Item con Id: 65a3f62569eff29aac06e897
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e895
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e89e
+debug: Cantidad <= Stock 
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e895
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e897
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e89e
+debug: Se genero el ticket correctamente
+debug: Se obtuvieron los productos del carrito
+debug: Se recorren los productos del carrito
+debug: Item con Id: 65a3f62569eff29aac06e897
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e895
+debug: Cantidad <= Stock 
+debug: Item con Id: 65a3f62569eff29aac06e89e
+debug: Cantidad <= Stock 
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e897
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e895
+debug: Se actualizo el stock del producto con Id: 65a3f62569eff29aac06e89e
+debug: Se genero el ticket correctamente

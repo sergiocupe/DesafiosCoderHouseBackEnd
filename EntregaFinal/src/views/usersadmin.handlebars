@@ -1,0 +1,27 @@
+<div>
+  <h2>Lista de Usuarios</h2>
+  <div class="div-session">
+    <div class="div-bienvenido">
+      <h3>Bienvenido {{user.first_name}} {{user.last_name}}<br/>
+      <h3>Rol: {{user.rol}}</h3>
+    </div>
+    <button id="logoutBtn" type="button" class="btnCerrarSesion">Cerrar Sesion</button>
+  </div>
+  <div id="listadoUsuarios" class="users-container">
+    {{#each data}}
+      <div class="users-item">
+        <p><b>Id:</b> {{this._id}}</p>
+        <p><b>Nombre:</b> {{this.first_name}} {{this.last_name}} </p>
+        <p><b>Email:</b> {{this.email}}</p>
+        <p><b>Rol:</b> {{this.rol}}</p>
+        <div class="users-buttons">
+          <button id={{this._id}} name="btn-change-rol" class='btnRol'>Modificar Rol</button>
+          <button id={{this._id}} name="btn-delete-user" class='btnEliminar'>Eliminar</button>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/user.js"></script>

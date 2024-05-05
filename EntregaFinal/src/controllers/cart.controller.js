@@ -204,7 +204,12 @@ export const purchaseCartById = async (req,res)=>{
     
     //Agrego el ticket del carrito
     const ticketManager = new TicketProductManager()
-    const ticket = ()=>{generarCodigoAleatorio(),new Date(),totalTicket,req.user.email}
+    const ticket = {
+      "code":generarCodigoAleatorio(),
+      "purchase_datetime":new Date(),
+      "amount":totalTicket,
+      "purchaser": req.user.email
+    }
     const ticketDto = new TicketDTO(ticket)
     const rdoTicket = await ticketManager.addTicket(ticketDto)
 
@@ -213,13 +218,14 @@ export const purchaseCartById = async (req,res)=>{
     if (rdoTicket.message==="OK")
     {
       req.logger.debug("Se genero el ticket correctamente")
-      return res.status(200).json({message : messageFinal})
+      return res.status(200).json({message : "OK", rdo: messageFinal})
     }
   }     
   res.status(400).json(productos)
  }
  catch(err){
-    req.logger.fatal(error.message)
+  console.log(err)
+      req.logger.fatal(error.message)
     res.status(400).json({menssage: err})
  }
 }

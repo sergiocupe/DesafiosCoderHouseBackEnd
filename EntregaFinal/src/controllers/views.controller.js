@@ -1,8 +1,10 @@
 import { ProductMongoManager } from "../dao/managerDB/ProductMongoManager.js"
 import { CartMongoManager } from "../dao/managerDB/CartMongoManager.js"
+import { UserMongoManager } from "../dao/managerDB/UserMongoManager.js"
 
 const productManager=new ProductMongoManager()
 const cartManager=new CartMongoManager()
+const userManager=new UserMongoManager()
 
 export const getViewDefault = async (req, res) =>{
   const resultado = await productManager.getProducts()
@@ -35,7 +37,7 @@ export const getViewProducts = async (req, res) =>{
   const resultado = await productManager.getProducts(limit,page)
 
   if (resultado.message==="OK")
-    res.render("products", { title: "Products", data: resultado.rdo, user: user })
+    res.render("products", { title: "Productos", data: resultado.rdo, user: user })
 }
 
 export const getViewProductById = async (req, res) =>{
@@ -44,13 +46,13 @@ export const getViewProductById = async (req, res) =>{
   const resultado = await productManager.getProductById(pId)
 
   if (resultado.message==="OK")
-    res.render("product", { title: "View Product", data: resultado.rdo })
+    res.render("product", { title: "Vista de Productos", data: resultado.rdo })
 }
 
 export const getViewCartById = async (req, res) =>{
   const {cId} = req.params
   const resultado = await cartManager.getProductsCartById(cId)
-  res.render("cartDetails", { title: "Details Cart", data: resultado.rdo })
+  res.render("cartDetails", { title: "Detalle del Carrito", data: resultado.rdo })
 }
 
 export const getViewFailLogin = async (req, res) =>{
@@ -79,3 +81,19 @@ export const getViewChat = async (req, res) =>{
   res.render('chat')
 }
 
+export const getViewUserAdmin = async (req, res) =>{
+  const {user} = req.session
+
+  const resultado = await userManager.getAllUsers()
+
+  if (resultado.message==="OK")
+    res.render("usersadmin", { title: "Usuario", data: resultado.rdo, user: user })
+}
+
+export const getViewConfirmCart = async (req, res) =>{
+  res.render('confirmCart')
+}
+
+export const getViewFailCart = async (req, res) =>{
+  res.render('failCart')
+}

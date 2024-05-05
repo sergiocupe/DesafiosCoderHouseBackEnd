@@ -1,6 +1,6 @@
 import express from "express"
 import { checkAuth, checkExistingUser, authorization, checkTokenExpire } from "../middleware/auth.js"
-import { getViewDefault, getViewLogin, getViewProducts, getViewRegister,getViewProductById, getViewCartById, getViewFailLogin, getViewFailRegister, getViewUserCreate, getViewRealTime, getViewChat, getViewRecoveryPass, getViewResetPass, getViewChangeSuccess } from "../controllers/views.controller.js"
+import { getViewDefault, getViewLogin, getViewProducts, getViewRegister,getViewProductById, getViewCartById, getViewConfirmCart, getViewFailLogin, getViewFailCart, getViewFailRegister, getViewUserCreate, getViewRealTime, getViewChat, getViewRecoveryPass, getViewResetPass, getViewChangeSuccess, getViewUserAdmin } from "../controllers/views.controller.js"
 import { getCurrent } from "../controllers/session.controller.js"
 
 const viewRoutes = express.Router()
@@ -34,5 +34,11 @@ viewRoutes.get("/changesuccess",getViewChangeSuccess)
 viewRoutes.get("/resetpassword/:token/:email",checkTokenExpire ,getViewResetPass)
 
 viewRoutes.get('/chat', checkAuth, authorization(['Usuario','Premmium']), getViewChat)
+
+viewRoutes.get('/userAdmin', checkAuth, authorization(['Admin']), getViewUserAdmin)
+
+viewRoutes.get("/confirmCartOK",getViewConfirmCart)
+
+viewRoutes.get("/failCart",getViewFailCart)
 
 export default viewRoutes

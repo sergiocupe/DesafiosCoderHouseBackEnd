@@ -26,6 +26,10 @@ export const productsNotFound = () => {
     return 'No se pudieron recuperar los productos'
 }
 
+export const usersNotFound = () => {
+    return 'No se pudieron recuperar los usuarios'
+}
+
 export const postChangeRolUser = () => {
     return 'No se pudo cambiar el rol del usuario'
 }

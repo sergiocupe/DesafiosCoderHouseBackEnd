@@ -106,6 +106,12 @@ button:hover {
   justify-content: end;
   align-items: first baseline;
 }
+.div-cart{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: first baseline;
+}
 
 .div-login
 {
@@ -245,8 +251,36 @@ button:hover {
   text-align: center; 
 }
 
+.bntViewCart
+{
+  background-color: #499ee4;
+  height: 30px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  text-align: center; 
+}
+
 input[readonly] {
   background-color: #f4f4f4; /* Color de fondo gris */
   color: #888; /* Color de texto gris */
   border: 1px solid #ccc; /* Borde gris */
+}
+
+.users-container {
+  max-width: 800px;
+  margin: 10px auto;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.users-item {
+  border: 1px solid #fff;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

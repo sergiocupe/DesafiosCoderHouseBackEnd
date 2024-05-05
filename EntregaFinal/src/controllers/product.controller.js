@@ -3,6 +3,8 @@ import ProductDTO from "../dtos/product.dto.js"
 import CustomErrors from "../errors/CustomError.js"
 import { productsNotFound, idErrorInfo, postProductErrorInfo } from "../errors/info.js"
 import ErrorEnum from "../errors/error.enum.js"
+import { UserMongoManager } from "../dao/managerDB/UserMongoManager.js"
+import MailingService from "../utils/mailing.js"
 
 export const getProducts = async (req, res, next) => {
   try {
@@ -111,25 +113,46 @@ export const putProduct = async (req, res, next) => {
 }
 
 export const deleteProduct = async (req, res, next) => {
-  try {
-    const { pId } = req.params
-    const products = new ProductMongoManager()
+    try {
+      let resultado
+      const { pId } = req.params
 
-    const resultado = await products.deleteProduct(pId)
+      const products = new ProductMongoManager()
+      resultado = await products.getProductById(pId)
+      const users = new UserMongoManager()
+      resultado = await users.getUserById(resultado.rdo.owner)
 
-    if (resultado.message === "OK") 
-      return res.status(200).json(deleted.rdo)
+      if (resultado.message==="OK"){
+        if (resultado.rdo.rol==="Premium") {
 
-    req.logger.error("Error Borrar Producto")
+          const mailingServices = new MailingService()
+          const emailContent = `<p>el producto con id ${pId},se ha eliminado de la base de datos.</p>`
+  
+          // Envia el correo electrónico
+          await mailingServices.sendMail({
+            from: "Ecommerce CoderHouse",
+            to: resultado.rdo.email,
+            subject: "Notificacion de Eliminacion de Producto",
+            html: emailContent,
+          })
+        }
 
-    CustomErrors.createError({
-      name: "Error Borrar Producto",
-      cause: idErrorInfo('producto',pId),
-      message: resultado.rdo,
-      code: ErrorEnum.MISSING_DATA_ERROR,
-    })  
-  } catch (error) {
-    req.logger.fatal(error.message)
-    next(error)
-  }
+        resultado = await products.deleteProduct(pId)
+
+        if (resultado.message === "OK") 
+          return res.status(200).json(resultado.rdo)
+      }
+
+      req.logger.error("Error Borrar Producto")
+
+      CustomErrors.createError({
+        name: "Error Borrar Producto",
+        cause: idErrorInfo('producto',pId),
+        message: resultado.rdo,
+        code: ErrorEnum.MISSING_DATA_ERROR,
+      })  
+    } catch (error) {
+      req.logger.fatal(error.message)
+      next(error)
+    }
 }

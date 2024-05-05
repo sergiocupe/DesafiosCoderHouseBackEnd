@@ -9,11 +9,85 @@ import { TokenMongoManager } from "../dao/managerDB/TokenMongoManager.js"
 import { createHash, isValidPassword } from "../utils/bcrypt.js"
 import { Command } from "commander"
 import { getVariables } from "../config/config.js"
+import { usersNotFound, idErrorInfo } from "../errors/info.js"
 
 const program = new Command()
 program.option('--mode <mode>', 'Modo de trabajo', 'production')
 const options = program.parse()
 const { userAdmin } = getVariables(options)
+
+export const getUsers = async (req, res, next) => {
+  try {
+    const userMongoManager = new UserMongoManager()
+    const users = await userMongoManager.getAllUsers()
+
+    const resultado = users.rdo.map(u=>new UserDTO(u).getCurrentUser())
+
+    if (resultado) {
+      return res.status(200).json(resultado)
+    }
+    
+    req.logger.info("Error recuperar los Usuarios")
+    CustomErrors.createError({
+      name: "Error recuperar Usuarios",
+      cause: resultado.rdo,
+      message: usersNotFound(),
+      code: ErrorEnum.USERS_NOT_FOUND,
+    })
+
+  } catch (error) {
+    req.logger.error(error.message)
+    next(error)
+  }
+}
+
+export const getAllUsers = async (req, res, next) => {
+  try {
+    const userMongoManager = new UserMongoManager()
+    const resultado = await userMongoManager.getAllUsers()
+
+    if (resultado) {
+      return res.status(200).json(resultado)
+    }
+    
+    req.logger.info("Error recuperar los Usuarios")
+    CustomErrors.createError({
+      name: "Error recuperar Usuarios",
+      cause: resultado.rdo,
+      message: usersNotFound(),
+      code: ErrorEnum.USERS_NOT_FOUND,
+    })
+
+  } catch (error) {
+    req.logger.error(error.message)
+    next(error)
+  }
+}
+
+
+export const deleteUsers= async (req, res, next) => {
+  try {
+  const userMongoManager = new UserMongoManager()
+  const resultado = await userMongoManager.deleteUsersLastConection()
+  
+  if (resultado) {
+    return res.status(200).json(resultado)
+  }
+
+  req.logger.info("Error Eliminar los Usuarios de última conexión")
+  CustomErrors.createError({
+    name: "Error Eliminar Usuarios",
+    cause: resultado.rdo,
+    message: usersNotFound(),
+    code: ErrorEnum.USERS_NOT_FOUND,
+  })
+
+} catch (error) {
+  req.logger.error(error.message)
+  next(error)
+}
+
+}
 
 export const postSession = (req, res) => {
   res.render('usercreatesuccess')
@@ -85,6 +159,32 @@ export const getCurrent= (req, res) => {
 export const getGithub= (req, res) => {
     req.session.user=req.user
     res.redirect('/products')
+}
+
+export const changeRolUserPorAdmin = async (req, res, next) => {
+  try {
+    const { uId } = req.params
+    
+    const userMongoManager = new UserMongoManager()
+
+    const resultado = await userMongoManager.changeRol(uId)
+
+    if (resultado.message === "OK") {
+      return res.status(200).json(resultado)
+    }
+
+    req.logger.error("Error al cambiar el Rol del Usuario")
+
+    CustomErrors.createError({
+      name: "Error Cambio Rol Usuario",
+      cause: postChangeRolUser(),
+      message: resultado.rdo,
+      code: ErrorEnum.MISSING_DATA_ERROR,
+    })  
+  } catch (error) {
+    req.logger.fatal(error.message)
+    next(error)
+  }
 }
 
 export const changeRolUser = async (req, res, next) => {
@@ -260,5 +360,28 @@ export const addDocuments = async (req, res, next) => {
     req.logger.fatal(error.message)
     next(error)
   }
+}
 
+export const deleteUser = async (req, res, next) => {
+  try {
+    const { uId } = req.params
+    const users = new UserMongoManager()
+
+    const resultado = await users.deleteUser(uId)
+
+    if (resultado.message === "OK") 
+      return res.status(200).json(resultado.rdo)
+
+    req.logger.error("Error Borrar Usuario")
+
+    CustomErrors.createError({
+      name: "Error Borrar Usuario",
+      cause: idErrorInfo('usuario',uId),
+      message: resultado.rdo,
+      code: ErrorEnum.MISSING_DATA_ERROR,
+    })  
+  } catch (error) {
+    req.logger.fatal(error.message)
+    next(error)
+  }
 }
