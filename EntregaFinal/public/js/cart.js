@@ -8,7 +8,7 @@ const addProductoCart = async (pId) =>{
     //Si existe lo recupero del sessionStorage
     if (!sessionStorage.getItem("cart")) 
     {
-      const responseCartCreate = await fetch(`http://localhost:8080/api/carts/`, {
+      const responseCartCreate = await fetch(`${await obtenerApiUrl()}/api/carts/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ const addProductoCart = async (pId) =>{
       cartId = sessionStorage.getItem("cart")
 
     //Ahora agrego el producto seleccionado al carrito
-    const responseCartAddProd = await fetch(`http://localhost:8080/api/carts/${cartId}/products/${pId}`, {
+    const responseCartAddProd = await fetch(`${await obtenerApiUrl()}/api/carts/${cartId}/products/${pId}`, {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',

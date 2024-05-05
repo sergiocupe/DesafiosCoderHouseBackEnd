@@ -1,8 +1,9 @@
+
 const logoutBtn=document.getElementById("logoutBtn")
 const viewCartBtn=document.getElementById("viewCartBtn")
 
 logoutBtn.addEventListener("click", async (e)=>{
-  const result = await fetch("http://localhost:8080/api/session/logout",
+  const result = await fetch(`${await obtenerApiUrl()}/api/session/logout`,
   {
     method: "post",
     headers:{
@@ -17,7 +18,7 @@ logoutBtn.addEventListener("click", async (e)=>{
 
 viewCartBtn.addEventListener("click", async (e)=>{
   if (sessionStorage.getItem("cart"))
-    window.location.href='http://localhost:8080/carts/' + sessionStorage.getItem("cart") 
+    window.location.href=`${await obtenerApiUrl()}/carts/${sessionStorage.getItem("cart")}`
 })
 
 // Función para construir la URL y redireccionar
