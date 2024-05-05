@@ -1,7 +1,7 @@
 
 const changeRol = async (uId) =>{
   try{
-    const responseUserRol = await fetch(`http://localhost:8080/api/users/changeRolAdmin/${uId}`, {
+    const responseUserRol = await fetch(`${await obtenerApiUrl()}/api/users/changeRolAdmin/${uId}`, {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ const changeRol = async (uId) =>{
 
 const deleteUser = async (uId) =>{
   try{
-      const responseUserDelete = await fetch(`http://localhost:8080/api/users/${uId}`, {
+      const responseUserDelete = await fetch(`${await obtenerApiUrl()}/api/users/${uId}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
