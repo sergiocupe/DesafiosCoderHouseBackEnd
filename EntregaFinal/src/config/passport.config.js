@@ -12,7 +12,7 @@ const LocalStrategy = local.Strategy
 const program = new Command()
 program.option('--mode <mode>', 'Modo de trabajo', 'production')
 const options = program.parse()
-const { userAdmin, passAdmin } = getVariables(options)
+const { userAdmin, passAdmin, webUrl } = getVariables(options)
 
 const initializePassport = () => {
     passport.use('register', new LocalStrategy(
@@ -70,7 +70,7 @@ const initializePassport = () => {
         //Credenciales para el Github
         {
         clientID:'Iv1.3a2893ef48dada05',
-        callbackURL:'http://localhost:8080/api/session/githubcallback',
+        callbackURL: `${webUrl}/api/session/githubcallback`,
         clientSecret: 'c1ad158620ea774e99256def16dd589a40d846a7'
         },
         async (accessToken, refreshToken, profile, done) =>{

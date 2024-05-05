@@ -14,7 +14,7 @@ import { usersNotFound, idErrorInfo } from "../errors/info.js"
 const program = new Command()
 program.option('--mode <mode>', 'Modo de trabajo', 'production')
 const options = program.parse()
-const { userAdmin } = getVariables(options)
+const { userAdmin, webUrl } = getVariables(options)
 
 export const getUsers = async (req, res, next) => {
   try {
@@ -245,7 +245,7 @@ export const recoveryPass = async (req, res, next) => {
       {
         const emailContent = `
         Haga clic en el siguiente enlace para restablecer su contraseña:
-        <a href="http://localhost:8080/resetpassword/${token.token}/${email}">Restablecer Contraseña</a>`
+        <a href=${webUrl}/resetpassword/${token.token}/${email}">Restablecer Contraseña</a>`
 
         await mailingServices.sendMail({
           from: 'Ecommerce CoderHouse',
