@@ -14,7 +14,7 @@ export const getVariables = (options) => {
         userAdmin: process.env.USEADMIN,
         passAdmin: process.env.PASSADMIN,
         modoLogger: process.env.MODO_LOGGER,
-        webUrl: process.env.WEB_URL,
+        webUrl: process.env.WEBURL,
         mailing:{
             USER: process.env.MAILING_USER,
             SERVICE: process.env.MAILING_SERVER,

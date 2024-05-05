@@ -1,10 +1,11 @@
+
 const addProductoCart = async (pId) =>{
   
   try{
     let cartId
 
     //Si no existe el carrito para la sesion lo creo en primera instancia, para luego poder agregar los items
-    //S existe lo recupero del sessionStorage
+    //Si existe lo recupero del sessionStorage
     if (!sessionStorage.getItem("cart")) 
     {
       const responseCartCreate = await fetch(`http://localhost:8080/api/carts/`, {

@@ -28,7 +28,7 @@ const app = express()
 const program = new Command()
 program.option('--mode <mode>', 'Modo de trabajo', 'production')
 const options = program.parse()
-const { port, mongoUrl, tockenSecret } = getVariables(options)
+const { port, mongoUrl, tockenSecret, webUrl } = getVariables(options)
 
 const productManager = new ProductMongoManager()
 const messageManager = new MessageMongoManager()
@@ -82,6 +82,14 @@ app.use('/api/users', sessionRoutes)
 app.use('/api/mockingproducts', mookingRoutes)
 app.use('/api/loggerTest', loggerTestRoutes)
 app.use(ErrorHandler)
+
+
+app.get('/env', (req, res) => {
+  res.json({
+    apiUrl: webUrl
+  });
+});
+
 
 //*************** SERVER **************/
 const httpServer = app.listen(port, () => {

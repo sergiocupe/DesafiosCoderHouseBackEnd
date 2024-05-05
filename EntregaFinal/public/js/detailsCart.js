@@ -1,9 +1,20 @@
+let apiUrl = ''
+fetch('/env')
+  .then(response => response.json())
+  .then(envVariables => {
+    // Utiliza las variables de entorno recibidas
+    apiUrl=envVariables.apiUrl
+    // Etc.
+  })
+  .catch(error => console.error('Error fetching environment variables:', error));
+  
+
 const viewCartBtn=document.getElementById("okCartBtn")
 
 viewCartBtn.addEventListener("click", async (e)=>{
 
   if (sessionStorage.getItem("cart")){
-    const result = await fetch('http://localhost:8080/api/carts/' + sessionStorage.getItem("cart") + "/purchase",
+    const result = await fetch(`${apiUrl}/api/carts/${sessionStorage.getItem("cart")}/purchase`,
     {
       method: "POST",
       headers:{
